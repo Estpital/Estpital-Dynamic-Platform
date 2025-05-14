@@ -5,21 +5,40 @@ function Navbar() {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     if (isLangMenuOpen) setIsLangMenuOpen(false);
+    if (isServicesMenuOpen) setIsServicesMenuOpen(false);
   };
 
   const toggleLangMenu = () => {
     setIsLangMenuOpen(!isLangMenuOpen);
     if (isMenuOpen) setIsMenuOpen(false);
+    if (isServicesMenuOpen) setIsServicesMenuOpen(false);
+  };
+
+  const toggleServicesMenu = () => {
+    setIsServicesMenuOpen(!isServicesMenuOpen);
+    if (isMenuOpen) setIsMenuOpen(false);
+    if (isLangMenuOpen) setIsLangMenuOpen(false);
   };
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     setIsLangMenuOpen(false);
   };
+
+  const services = [
+    { name: t('service_names.hair_transplant'), path: "/sac-ekimi" },
+    { name: t('service_names.rhinoplasty'), path: "/burun-estetigi" },
+    { name: t('service_names.breast_aesthetics'), path: "/meme-estetigi" },
+    { name: t('service_names.facial_aesthetics'), path: "/yuz-estetigi" },
+    { name: t('service_names.fillers_botox'), path: "/dolgu-botoks" },
+    { name: t('service_names.dental_treatments'), path: "/dis-tedavileri" },
+    { name: t('service_names.tummy_tuck'), path: "/karin-germe" },
+  ];
 
   return (
     <nav className="bg-blue-900 text-white p-4 sticky top-0 z-50">
@@ -37,12 +56,37 @@ function Navbar() {
           <a href="/doktorlarimiz" className="text-sm sm:text-base hover:underline">
             {t('navbar.doctors')}
           </a>
-          <a href="/sac-ekimi" className="text-sm sm:text-base hover:underline">
-            {t('navbar.hair_transplant')}
-          </a>
-          <a href="/burun-estetigi" className="text-sm sm:text-base hover:underline">
-            {t('navbar.rhinoplasty')}
-          </a>
+          <div className="relative">
+            <button
+              onClick={toggleServicesMenu}
+              className="text-sm sm:text-base hover:underline focus:outline-none flex items-center"
+            >
+              Hizmetlerimiz
+              <svg
+                className={`w-4 h-4 ml-1 transform transition-transform ${isServicesMenuOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            {isServicesMenuOpen && (
+              <div className="absolute left-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg z-50">
+                {services.map((service, index) => (
+                  <a
+                    key={index}
+                    href={service.path}
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setIsServicesMenuOpen(false)}
+                  >
+                    {service.name}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
           <div className="relative">
             <button
               onClick={toggleLangMenu}
@@ -96,12 +140,40 @@ function Navbar() {
           <a href="/doktorlarimiz" className="block text-base hover:underline py-2">
             {t('navbar.doctors')}
           </a>
-          <a href="/sac-ekimi" className="block text-base hover:underline py-2">
-            {t('navbar.hair_transplant')}
-          </a>
-          <a href="/burun-estetigi" className="block text-base hover:underline py-2">
-            {t('navbar.rhinoplasty')}
-          </a>
+          <div>
+            <button
+              onClick={toggleServicesMenu}
+              className="block text-base hover:underline py-2 w-full text-left flex items-center"
+            >
+              Hizmetlerimiz
+              <svg
+                className={`w-5 h-5 ml-1 transform transition-transform ${isServicesMenuOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            {isServicesMenuOpen && (
+              <div className="pl-4 space-y-2">
+                {services.map((service, index) => (
+                  <a
+                    key={index}
+                    href={service.path}
+                    className="block text-base hover:underline py-2"
+                    onClick={() => {
+                      setIsServicesMenuOpen(false);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    {service.name}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
 
