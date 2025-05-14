@@ -22,7 +22,7 @@ function HeadModel({ isMobile }) {
 
       // Modelin ölçeğini ekran boyutuna göre ayarla
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scaleFactor = isMobile ? 2 / maxDim : 3 / maxDim; // Mobil için daha büyük ölçek
+      const scaleFactor = isMobile ? 3 / maxDim : 2.5 / maxDim; // Mobil için daha büyük ölçek
       scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
       // Modelin başlangıç konumunu ayarla
@@ -48,53 +48,37 @@ function Home() {
       {/* Navbar */}
       <Navbar />
 
-      {/* Hero Section (Mavi Alan) */}
-      <section className="bg-blue-100 py-12 sm:py-20 text-center">
-        <div className="container mx-auto px-4 flex flex-col items-center justify-between">
-          <div className="w-full text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">{t('welcome')}</h2>
-            <p className="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto">
-              {t('welcome_desc')}
-            </p>
-            {!isMobile && (
-              <a
-                href="/randevu"
-                className="inline-block bg-blue-700 text-white px-5 py-2 sm:px-6 sm:py-3 text-base sm:text-lg rounded-lg hover:bg-blue-800"
-              >
-                {t('appointment')}
-              </a>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Model Bölümü (Beyaz Arka Plan) */}
+      {/* Model Bölümü (Sayfa açıldığında direkt model görünecek) */}
       <section className="bg-white py-8">
-        <div className={`w-full ${isMobile ? 'h-screen' : 'h-[70vh]'}`}>
-          <Canvas>
-            <Suspense fallback={null}>
-              <PerspectiveCamera 
-                makeDefault 
-                position={[0, 0, 5]} // Kamerayı modelden uzaklaştırıyoruz
-                fov={isMobile ? 70 : 50} // Mobil için daha geniş görüş açısı
-              />
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[5, 5, 5]} intensity={1} />
-              <HeadModel isMobile={isMobile} />
-              <OrbitControls 
-                enablePan={false} 
-                minDistance={isMobile ? 2 : 1.5}
-                maxDistance={isMobile ? 5 : 4}
-                target={[0, 0, 0]}
-                enableZoom={true}
-                enableRotate={true}
-                minAzimuthAngle={-Math.PI * 0.75} // -135 derece
-                maxAzimuthAngle={Math.PI * 0.75} // 135 derece
-                minPolarAngle={Math.PI / 2} // Yukarı-aşağı dönüşü kilitle
-                maxPolarAngle={Math.PI / 2} // Yukarı-aşağı dönüşü kilitle
-              />
-            </Suspense>
-          </Canvas>
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+          <div className={`md:w-1/3 ${isMobile ? 'hidden' : 'block'} text-center md:text-left`}></div>
+          <div className={`w-full ${isMobile ? 'w-full h-screen' : 'md:w-1/3 h-[70vh]'}`}>
+            <Canvas>
+              <Suspense fallback={null}>
+                <PerspectiveCamera 
+                  makeDefault 
+                  position={[0, 0, 5]} // Kamerayı modelden uzaklaştırıyoruz
+                  fov={isMobile ? 70 : 50} // Mobil için daha geniş görüş açısı
+                />
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[5, 5, 5]} intensity={1} />
+                <HeadModel isMobile={isMobile} />
+                <OrbitControls 
+                  enablePan={false} 
+                  minDistance={isMobile ? 2 : 1.5}
+                  maxDistance={isMobile ? 5 : 4}
+                  target={[0, 0, 0]}
+                  enableZoom={true}
+                  enableRotate={true}
+                  minAzimuthAngle={-Math.PI * 0.75} // -135 derece
+                  maxAzimuthAngle={Math.PI * 0.75} // 135 derece
+                  minPolarAngle={Math.PI / 2} // Yukarı-aşağı dönüşü kilitle
+                  maxPolarAngle={Math.PI / 2} // Yukarı-aşağı dönüşü kilitle
+                />
+              </Suspense>
+            </Canvas>
+          </div>
+          <div className={`md:w-1/3 ${isMobile ? 'hidden' : 'block'} text-center md:text-right`}></div>
         </div>
       </section>
 
