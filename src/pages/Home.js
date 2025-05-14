@@ -3,24 +3,12 @@ import Navbar from '../components/Navbar';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, PerspectiveCamera } from '@react-three/drei';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { Box3, Vector3, MeshBasicMaterial, LineBasicMaterial, BufferGeometry, Vector3 as ThreeVector3, Line } from 'three';
+import { Box3, Vector3 } from 'three';
 
 // 3D Model Bileşeni
-function HeadModel({ isMobile, onRegionClick }) {
+function HeadModel({ isMobile }) {
   const { scene } = useGLTF('/assets/scene.gltf'); // .gltf dosyasının yolu
   const modelRef = useRef();
-  const [selectedRegion, setSelectedRegion] = useState(null);
-
-  // Bölge tanımları ve renkleri
-  const regions = [
-    { name: 'Saç Bölgesi', color: '#FF5555', position: [0, 1.5, 0], bounds: { minY: 1.2, maxY: Infinity } }, // Kafa üstü
-    { name: 'Yüz Bölgesi', color: '#55FF55', position: [0, 1.0, 0], bounds: { minY: 0.8, maxY: 1.2 } }, // Yüz
-    { name: 'Boyun Bölgesi', color: '#5555FF', position: [0, 0.6, 0], bounds: { minY: 0.4, maxY: 0.8 } }, // Boyun
-    { name: 'Göğüs Bölgesi', color: '#FFFF55', position: [0, 0.2, 0], bounds: { minY: 0.0, maxY: 0.4 } }, // Göğüs
-    { name: 'Karın Bölgesi', color: '#FF55FF', position: [0, -0.2, 0], bounds: { minY: -0.4, maxY: 0.0 } }, // Karın
-    { name: 'Bel Bölgesi', color: '#55FFFF', position: [0, -0.6, 0], bounds: { minY: -0.8, maxY: -0.4 } }, // Bel
-    { name: 'Kol Kasları', color: '#FFA500', position: [0.5, 0.2, 0], bounds: { minX: 0.3, maxX: Infinity, minY: 0.0, maxY: 0.4 } }, // Kollar
-  ];
 
   // Sınırlayıcı kutuyu hesapla ve modeli merkeze al
   useEffect(() => {
@@ -34,111 +22,36 @@ function HeadModel({ isMobile, onRegionClick }) {
 
       // Modelin ölçeğini ekran boyutuna göre ayarla
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scaleFactor = isMobile ? 1.5 / maxDim : 2 / maxDim; // Daha küçük ölçek
+      const scaleFactor = isMobile ? 2 / maxDim : 3 / maxDim; // Mobil için daha büyük ölçek
       scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
       // Modelin başlangıç konumunu ayarla
-      scene.position.set(0, isMobile ? -0.5 : 0, 0);
-
-      // Bölgelere göre renklendirme (orijinal materyalleri koru)
-      scene.traverse((child) => {
-        if (child.isMesh) {
-          const position = child.position;
-          const region = regions.find((r) => {
-            const inYBounds = position.y >= (r.bounds.minY || -Infinity) && position.y <= (r.bounds.maxY || Infinity);
-            const inXBounds = !r.bounds.minX || (position.x >= (r.bounds.minX || -Infinity) && position.x <= (r.bounds.maxX || Infinity));
-            return inYBounds && inXBounds;
-          });
-
-          if (region) {
-            child.material = new MeshBasicMaterial({ color: region.color });
-            child.userData.region = region.name;
-          }
-        }
-      });
+      scene.position.set(0, 0, 0);
     }
   }, [scene, isMobile]);
 
-  // Tıklama olayını yönet
+  // Tıklama olayını yönet (şimdilik sadece test için)
   const handleClick = (event) => {
     const mesh = event.object;
-    if (mesh.userData.region) {
-      setSelectedRegion(mesh.userData.region);
-      onRegionClick(mesh.userData.region);
-    }
+    console.log('Tıklanan bölge:', mesh.name || 'Bilinmeyen bölge');
   };
 
-  return (
-    <>
-      <primitive object={scene} ref={modelRef} onClick={handleClick} />
-      {selectedRegion && (
-        <group>
-          {/* Çubuk ve isim etiketi */}
-          {regions.map((region) => {
-            if (region.name === selectedRegion) {
-              const startPoint = new ThreeVector3(region.position[0], region.position[1], region.position[2]);
-              const endPoint = startPoint.clone().add(new ThreeVector3(isMobile ? 1.5 : 2, 0, 0)); // Çubuğun uzunluğu
-              const points = [startPoint, endPoint];
-              const geometry = new BufferGeometry().setFromPoints(points);
-              return (
-                <line key={region.name} geometry={geometry}>
-                  <lineBasicMaterial color={region.color} linewidth={2} />
-                </line>
-              );
-            }
-            return null;
-          })}
-        </group>
-      )}
-    </>
-  );
+  return <primitive object={scene} ref={modelRef} onClick={handleClick} />;
 }
 
 function Home() {
   const { t } = useTranslation();
-  const [selectedRegion, setSelectedRegion] = useState(null);
-  const [cameraPosition, setCameraPosition] = useState([0, 0, 5]);
   const isMobile = window.innerWidth <= 768;
-
-  const handleRegionClick = (region) => {
-    setSelectedRegion(region);
-    // Bölgeye göre kamerayı yakınlaştır
-    switch (region) {
-      case 'Saç Bölgesi':
-        setCameraPosition([0, 1.5, 2]);
-        break;
-      case 'Yüz Bölgesi':
-        setCameraPosition([0, 1.0, 2]);
-        break;
-      case 'Boyun Bölgesi':
-        setCameraPosition([0, 0.6, 2]);
-        break;
-      case 'Göğüs Bölgesi':
-        setCameraPosition([0, 0.2, 2]);
-        break;
-      case 'Karın Bölgesi':
-        setCameraPosition([0, -0.2, 2]);
-        break;
-      case 'Bel Bölgesi':
-        setCameraPosition([0, -0.6, 2]);
-        break;
-      case 'Kol Kasları':
-        setCameraPosition([0.5, 0.2, 2]);
-        break;
-      default:
-        setCameraPosition([0, 0, 5]);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navbar */}
       <Navbar />
 
-      {/* Hero Section */}
+      {/* Hero Section (Mavi Alan) */}
       <section className="bg-blue-100 py-12 sm:py-20 text-center">
         <div className="container mx-auto px-4 flex flex-col items-center justify-between">
-          <div className="w-full text-center mb-8">
+          <div className="w-full text-center">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">{t('welcome')}</h2>
             <p className="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto">
               {t('welcome_desc')}
@@ -152,36 +65,36 @@ function Home() {
               </a>
             )}
           </div>
-          <div className={`w-full ${isMobile ? 'h-screen' : 'h-[60vh]'} mt-8`}>
-            <Canvas>
-              <Suspense fallback={null}>
-                <PerspectiveCamera 
-                  makeDefault 
-                  position={cameraPosition}
-                  fov={isMobile ? 70 : 50} // Mobil için daha geniş görüş açısı
-                />
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[5, 5, 5]} intensity={1} />
-                <HeadModel isMobile={isMobile} onRegionClick={handleRegionClick} />
-                <OrbitControls 
-                  enablePan={false} 
-                  minDistance={isMobile ? 2 : 1.5}
-                  maxDistance={isMobile ? 5 : 4}
-                  target={[0, 0, 0]}
-                  enableZoom={true}
-                  enableRotate={true}
-                  minAzimuthAngle={-Math.PI * 0.75} // -135 derece
-                  maxAzimuthAngle={Math.PI * 0.75} // 135 derece
-                />
-              </Suspense>
-            </Canvas>
-          </div>
-          {selectedRegion && (
-            <div className="mt-4 text-center">
-              <p className="text-lg font-semibold text-blue-700">{selectedRegion}</p>
-              <p className="text-sm text-gray-600">Bu bölgeyi seçmek için tekrar tıklayın.</p>
-            </div>
-          )}
+        </div>
+      </section>
+
+      {/* Model Bölümü (Beyaz Arka Plan) */}
+      <section className="bg-white py-8">
+        <div className={`w-full ${isMobile ? 'h-screen' : 'h-[70vh]'}`}>
+          <Canvas>
+            <Suspense fallback={null}>
+              <PerspectiveCamera 
+                makeDefault 
+                position={[0, 0, 5]} // Kamerayı modelden uzaklaştırıyoruz
+                fov={isMobile ? 70 : 50} // Mobil için daha geniş görüş açısı
+              />
+              <ambientLight intensity={0.5} />
+              <directionalLight position={[5, 5, 5]} intensity={1} />
+              <HeadModel isMobile={isMobile} />
+              <OrbitControls 
+                enablePan={false} 
+                minDistance={isMobile ? 2 : 1.5}
+                maxDistance={isMobile ? 5 : 4}
+                target={[0, 0, 0]}
+                enableZoom={true}
+                enableRotate={true}
+                minAzimuthAngle={-Math.PI * 0.75} // -135 derece
+                maxAzimuthAngle={Math.PI * 0.75} // 135 derece
+                minPolarAngle={Math.PI / 2} // Yukarı-aşağı dönüşü kilitle
+                maxPolarAngle={Math.PI / 2} // Yukarı-aşağı dönüşü kilitle
+              />
+            </Suspense>
+          </Canvas>
         </div>
       </section>
 
