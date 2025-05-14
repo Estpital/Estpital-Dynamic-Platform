@@ -5,13 +5,76 @@ function Home() {
   const { t } = useTranslation();
 
   const hizmetler = [
-    { name: t('service_names.hair_transplant'), path: "/sac-ekimi", description: "FUE ve DHI teknikleriyle kalıcı ve doğal saç ekimi." },
-    { name: t('service_names.rhinoplasty'), path: "/burun-estetigi", description: "Yüzünüze uyumlu, estetik bir burun tasarımı." },
-    { name: t('service_names.breast_aesthetics'), path: "/meme-estetigi", description: "Doğal görünüm için meme büyütme, küçültme ve dikleştirme." },
-    { name: t('service_names.facial_aesthetics'), path: "/yuz-estetigi", description: "Yüz germe, boyun estetiği ve gençleştirme işlemleri." },
-    { name: t('service_names.fillers_botox'), path: "/dolgu-botoks", description: "Kırışıklık tedavisi ve hacim kazandırma." },
-    { name: t('service_names.dental_treatments'), path: "/dis-tedavileri", description: "İmplant, zirkonyum kaplama ve estetik diş çözümleri." },
-    { name: t('service_names.tummy_tuck'), path: "/karin-germe", description: "Daha düz ve sıkı bir karın için karın germe." },
+    { 
+      name: t('service_names.hair_transplant'), 
+      path: "/sac-ekimi", 
+      description: "FUE ve DHI teknikleriyle kalıcı ve doğal saç ekimi.",
+      icon: (
+        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+      )
+    },
+    { 
+      name: t('service_names.rhinoplasty'), 
+      path: "/burun-estetigi", 
+      description: "Yüzünüze uyumlu, estetik bir burun tasarımı.",
+      icon: (
+        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-3-9h6l-3-5z"/>
+        </svg>
+      )
+    },
+    { 
+      name: t('service_names.breast_aesthetics'), 
+      path: "/meme-estetigi", 
+      description: "Doğal görünüm için meme büyütme, küçültme ve dikleştirme.",
+      icon: (
+        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-4-6h8v2H8z"/>
+        </svg>
+      )
+    },
+    { 
+      name: t('service_names.facial_aesthetics'), 
+      path: "/yuz-estetigi", 
+      description: "Yüz germe, boyun estetiği ve gençleştirme işlemleri.",
+      icon: (
+        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-2-8h4v2h-4z"/>
+        </svg>
+      )
+    },
+    { 
+      name: t('service_names.fillers_botox'), 
+      path: "/dolgu-botoks", 
+      description: "Kırışıklık tedavisi ve hacim kazandırma.",
+      icon: (
+        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-10h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+      )
+    },
+    { 
+      name: t('service_names.dental_treatments'), 
+      path: "/dis-tedavileri", 
+      description: "İmplant, zirkonyum kaplama ve estetik diş çözümleri.",
+      icon: (
+        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-2-6h4v2h-4z"/>
+        </svg>
+      )
+    },
+    { 
+      name: t('service_names.tummy_tuck'), 
+      path: "/karin-germe", 
+      description: "Daha düz ve sıkı bir karın için karın germe.",
+      icon: (
+        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-4-6h8v2H8z"/>
+        </svg>
+      )
+    },
   ];
 
   return (
@@ -45,8 +108,9 @@ function Home() {
                 <a
                   key={index}
                   href={hizmet.path}
-                  className="min-w-[200px] sm:min-w-[250px] bg-gray-50 p-4 sm:p-6 rounded-lg shadow hover:shadow-lg transition snap-center"
+                  className="min-w-[200px] sm:min-w-[250px] bg-gray-50 p-4 sm:p-6 rounded-lg shadow hover:shadow-lg transition snap-center text-center"
                 >
+                  {hizmet.icon}
                   <h4 className="text-lg sm:text-xl font-semibold mb-2">{hizmet.name}</h4>
                   <p className="text-sm sm:text-lg">{hizmet.description}</p>
                 </a>
