@@ -61,7 +61,7 @@ function BurunEstetigi() {
               <div>
                 <h4 className="text-2xl font-semibold mb-4">Danışmanlık ve Planlama</h4>
                 <p className="text-lg">
-                  İlk adımda, uzman doktorumuz Dr. Gizem Kağıtçı ile yüz analizi yapılır. Yüz yapınıza en uygun burun şekli belirlenir ve beklentileriniz değerlendirilir. 3D simülasyonlarla operasyon sonrası görünüm hakkında fikir sahibi olabilirsiniz.
+                  İlk adımda, uzman doktorumuz Op. Dr. Ummahan Özaslan ile yüz analizi yapılır. Yüz yapınıza en uygun burun şekli belirlenir ve beklentileriniz değerlendirilir. 3D simülasyonlarla operasyon sonrası görünüm hakkında fikir sahibi olabilirsiniz.
                 </p>
               </div>
               <div>
@@ -75,6 +75,35 @@ function BurunEstetigi() {
                 <p className="text-lg">
                   Operasyon sonrası ilk 1-2 hafta içinde şişlik ve morluklar azalır. Burun ateli 7 gün sonra çıkarılır. Tam sonuçlar 6-12 ay içinde netleşir. İyileşme sürecinde doktor önerilerine uymak çok önemlidir.
                 </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Doktor Bilgisi */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-center mb-8">Uzman Doktorumuz: Op. Dr. Ummahan Özaslan</h3>
+            <div className="flex flex-col md:flex-row gap-8 max-w-4xl mx-auto">
+              <div className="md:w-1/3">
+                <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
+                  <p className="text-lg text-gray-600">[Dr. Ummahan Özaslan’ın Fotoğrafı - İleride Eklenecek]</p>
+                </div>
+              </div>
+              <div className="md:w-2/3">
+                <p className="text-lg mb-4">
+                  Op. Dr. Ummahan Özaslan, Plastik ve Rekonstrüktif Cerrahi alanında 15 yılı aşkın deneyime sahip bir uzmandır. Denizli’de doğup büyüyen Dr. Özaslan, 1998 yılında Ege Üniversitesi Tıp Fakültesi’nden mezun olmuştur. Plastik Cerrahi ihtisasını Celal Bayar Üniversitesi’nde tamamlamış, 2007 yılında ise ABD’de Cleveland University Hospital’da dünyaca ünlü plastik cerrah Dr. Bahman Guyuron’un yanında yüz ve burun estetiği üzerine fellowship eğitimi almıştır.
+                </p>
+                <p className="text-lg mb-4">
+                  2013 yılından beri Denizli’deki kendi muayenehanesinde hasta kabul eden Dr. Özaslan, ameliyatlarını özel hastanelerde gerçekleştirmektedir. Estetik cerrahide burun estetiği, yüz estetiği, meme estetiği ve karın estetiği üzerine yoğunlaşmıştır. Ulusal ve uluslararası kongreleri yakından takip ederek en güncel teknikleri hastalarına sunar. Türk Tabipler Birliği ve Türk Estetik Cerrahi Derneği üyesidir.
+                </p>
+                <p className="text-lg mb-4">
+                  Dr. Özaslan, hastalarına sakin ve güler yüzlü yaklaşımıyla tanınır. Operasyon sürecinde hastalarını detaylı bir şekilde bilgilendirir ve her zaman destekleyici bir tutum sergiler.
+                </p>
+                <a
+                  href="/doktorlar/ummahan-ozaslan"
+                  className="inline-block bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800"
+                >
+                  Dr. Özaslan Hakkında Daha Fazla Bilgi Edinin
+                </a>
               </div>
             </div>
           </div>
@@ -110,21 +139,6 @@ function BurunEstetigi() {
             </div>
           </div>
 
-          {/* Doktor Bilgisi */}
-          <div className="mb-12">
-            <h3 className="text-3xl font-bold text-center mb-8">Uzman Doktorumuz</h3>
-            <div className="max-w-2xl mx-auto bg-gray-50 p-6 rounded-lg shadow">
-              <h4 className="text-2xl font-semibold mb-2">Dr. Gizem Kağıtçı</h4>
-              <p className="text-lg mb-4">
-                Dr. Gizem Kağıtçı, burun estetiği ve yüz estetiği alanında 10 yılı aşkın deneyime sahiptir. Yüz simetrisi ve doğal sonuçlar konusunda uzmanlaşmıştır.
-              </p>
-              <p className="text-lg">
-                Eğitim: İstanbul Üniversitesi Tıp Fakültesi<br />
-                Uzmanlık: Plastik Cerrahi ve Yüz Estetiği
-              </p>
-            </div>
-          </div>
-
           {/* Öncesi/Sonrası */}
           <div className="mb-12">
             <h3 className="text-3xl font-bold text-center mb-8">Burun Estetiği Öncesi ve Sonrası</h3>
@@ -150,13 +164,13 @@ function BurunEstetigi() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-gray-50 p-6 rounded-lg shadow">
                 <p className="text-lg italic mb-4">
-                  “Dr. Gizem Kağıtçı ve ekibi harika bir iş çıkardı! Yeni burnum yüzümle çok uyumlu ve nefes almam çok rahatladı. Süreç boyunca kendimi çok güvende hissettim.”
+                  “Dr. Ummahan Özaslan ve ekibi harika bir iş çıkardı! Yeni burnum yüzümle çok uyumlu ve nefes almam çok rahatladı. Süreç boyunca kendimi çok güvende hissettim.”
                 </p>
                 <p className="text-lg font-semibold text-right">— Ayşe K., 32</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow">
                 <p className="text-lg italic mb-4">
-                  “Estpital’e burun estetiği için geldim ve sonuçtan çok memnunum. İyileşme süreci beklediğimden daha kolay geçti. Kesinlikle tavsiye ederim!”
+                  “Estpital’e burun estetiği için geldim ve sonuçtan çok memnunum. Dr. Özaslan’ın sakin ve destekleyici yaklaşımı beni çok rahatlattı. Kesinlikle tavsiye ederim!”
                 </p>
                 <p className="text-lg font-semibold text-right">— Mehmet T., 28</p>
               </div>
@@ -210,7 +224,7 @@ function BurunEstetigi() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-gray-50 p-6 rounded-lg shadow">
                 <h4 className="text-xl font-semibold mb-2">Uzman Kadro</h4>
-                <p>Dr. Gizem Kağıtçı liderliğinde deneyimli ekibimizle hizmetinizdeyiz.</p>
+                <p>Dr. Ummahan Özaslan liderliğinde deneyimli ekibimizle hizmetinizdeyiz.</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow">
                 <h4 className="text-xl font-semibold mb-2">Kişiselleştirilmiş Çözümler</h4>
@@ -220,6 +234,24 @@ function BurunEstetigi() {
                 <h4 className="text-xl font-semibold mb-2">Modern Teknikler</h4>
                 <p>Piezo rinoplasti ve kapalı tekniklerle güvenli ve doğal sonuçlar.</p>
               </div>
+            </div>
+          </div>
+
+          {/* Sosyal Medya Bağlantıları */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-center mb-8">Bizi Sosyal Medyada Takip Edin</h3>
+            <div className="flex justify-center space-x-6">
+              <a
+                href="https://www.instagram.com/estpitalagency"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-pink-500 text-white px-6 py-3 rounded-lg hover:bg-pink-600 flex items-center"
+              >
+                <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.982-6.98.058-1.281.072-1.689.072-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                Instagram’da Bizi Takip Edin
+              </a>
             </div>
           </div>
 
