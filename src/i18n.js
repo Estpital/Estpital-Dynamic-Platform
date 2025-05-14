@@ -14,12 +14,11 @@ const resources = {
       "navbar": {
         "home": "Ana Sayfa",
         "services": "Hizmetler",
-        "about": "Hakkımızda",
         "doctors": "Doktorlarımız",
         "contact": "İletişim",
         "appointment": "Randevu Al"
       },
-      "services": {
+      "service_names": {
         "hair_transplant": "Saç Ekimi",
         "rhinoplasty": "Burun Estetiği",
         "breast_aesthetics": "Meme Estetiği",
@@ -62,12 +61,11 @@ const resources = {
       "navbar": {
         "home": "Home",
         "services": "Services",
-        "about": "About Us",
         "doctors": "Our Doctors",
         "contact": "Contact",
         "appointment": "Book an Appointment"
       },
-      "services": {
+      "service_names": {
         "hair_transplant": "Hair Transplantation",
         "rhinoplasty": "Rhinoplasty",
         "breast_aesthetics": "Breast Aesthetics",
