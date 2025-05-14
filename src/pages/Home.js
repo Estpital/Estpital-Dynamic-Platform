@@ -1,17 +1,43 @@
 import { useTranslation } from 'react-i18next';
 import Navbar from '../components/Navbar';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
-import { Suspense } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useGLTF, PerspectiveCamera } from '@react-three/drei';
+import { Suspense, useEffect, useRef } from 'react';
+import { Box3, Vector3 } from 'three';
 
 // 3D Model Bileşeni
-function HeadModel() {
+function HeadModel({ isMobile }) {
   const { scene } = useGLTF('/assets/scene.gltf'); // .gltf dosyasının yolu
-  return <primitive object={scene} scale={1.5} position={[0, -1, 0]} />;
+  const modelRef = useRef();
+
+  // Sınırlayıcı kutuyu hesapla ve modeli merkeze al
+  useEffect(() => {
+    if (scene) {
+      const box = new Box3().setFromObject(scene);
+      const center = box.getCenter(new Vector3());
+      const size = box.getSize(new Vector3());
+
+      // Modeli merkeze al
+      scene.position.sub(center);
+
+      // Modelin ölçeğini ekran boyutuna göre ayarla
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const scaleFactor = isMobile ? 2 / maxDim : 3 / maxDim; // Mobil için daha küçük ölçek
+      scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+      // Modelin başlangıç konumunu ayarla
+      scene.position.set(0, 0, 0);
+    }
+  }, [scene, isMobile]);
+
+  return <primitive object={scene} ref={modelRef} />;
 }
 
 function Home() {
   const { t } = useTranslation();
+
+  // Mobil cihaz kontrolü
+  const isMobile = window.innerWidth <= 768;
 
   const hizmetler = [
     { 
@@ -106,13 +132,25 @@ function Home() {
               {t('appointment')}
             </a>
           </div>
-          <div className="md:w-1/2 mt-8 md:mt-0 h-64 md:h-96">
+          <div className="md:w-1/2 mt-8 md:mt-0 h-[50vh] md:h-[60vh] w-full">
             <Canvas>
               <Suspense fallback={null}>
+                <PerspectiveCamera 
+                  makeDefault 
+                  position={[0, 0, 5]} // Kamerayı modelden uzaklaştırıyoruz
+                  fov={isMobile ? 60 : 50} // Mobil cihazlarda daha geniş bir görüş açısı
+                />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
-                <HeadModel />
-                <OrbitControls enablePan={false} />
+                <HeadModel isMobile={isMobile} />
+                <OrbitControls 
+                  enablePan={false} 
+                  minDistance={isMobile ? 3 : 2} // Mobil cihazlarda daha uzak yakınlaştırma
+                  maxDistance={isMobile ? 6 : 5} // Maksimum uzaklık
+                  target={[0, 0, 0]} // Modelin merkezine odaklan
+                  autoRotate={true} // Otomatik dönme efekti
+                  autoRotateSpeed={1.0} // Dönme hızı
+                />
               </Suspense>
             </Canvas>
           </div>
