@@ -16,13 +16,13 @@ function Doktorlarimiz() {
       name: "Dr. Gizem Kağıtçı",
       specialty: "Plastik Cerrahi ve Saç Ekimi Uzmanı",
       description: "Dr. Gizem Kağıtçı, saç ekimi ve medikal estetik alanında 10 yılı aşkın deneyime sahip bir uzmandır. İstanbul Üniversitesi Tıp Fakültesi’nden mezun olan Dr. Kağıtçı, uzmanlığını plastik cerrahi ve saç ekimi teknikleri üzerine tamamlamıştır. Türk Plastik, Rekonstrüktif ve Estetik Cerrahi Derneği üyesidir ve ulusal/uluslararası kongreleri takip ederek en güncel yöntemleri hastalarına sunar. Özellikle sedasyonlu saç ekimi, eksozom tedavisi ve DHI yöntemiyle doğal ve kalıcı sonuçlar sunar.",
-      imagePlaceholder: "[Dr. Gizem Kağıtçı’nın Fotoğrafı - İleride Eklenecek]"
+      image: "/src/assets/dr-gizem-kagitci.jpg"
     },
     {
       name: "Op. Dr. Ummahan Özaslan",
       specialty: "Plastik ve Rekonstrüktif Cerrahi Uzmanı",
       description: "Op. Dr. Ummahan Özaslan, Plastik ve Rekonstrüktif Cerrahi alanında 15 yılı aşkın deneyime sahip bir uzmandır. 1998 yılında Ege Üniversitesi Tıp Fakültesi’nden mezun olmuştur. Plastik Cerrahi ihtisasını Celal Bayar Üniversitesi’nde tamamlamış, 2007 yılında ise ABD’de Cleveland University Hospital’da dünyaca ünlü plastik cerrah Dr. Bahman Guyuron’un yanında yüz ve burun estetiği üzerine fellowship eğitimi almıştır. 2013 yılından beri Denizli’deki kendi muayenehanesinde hasta kabul eden Dr. Özaslan, ameliyatlarını özel hastanelerde gerçekleştirmektedir. Türk Tabipler Birliği ve Türk Estetik Cerrahi Derneği üyesidir.",
-      imagePlaceholder: "[Dr. Ummahan Özaslan’ın Fotoğrafı - İleride Eklenecek]"
+      image: "/src/assets/dr-ummahan-ozaslan.jpg"
     }
   ];
 
@@ -46,7 +46,7 @@ function Doktorlarimiz() {
             <ul className={`sm:flex sm:space-x-6 text-sm sm:text-base ${isMenuOpen ? 'block' : 'hidden'} sm:block absolute sm:static top-16 left-0 right-0 bg-blue-700 sm:bg-transparent p-4 sm:p-0 z-10`}>
               <li className="py-2 sm:py-0"><a href="/" className="hover:underline">{t('navbar.home')}</a></li>
               <li className="py-2 sm:py-0"><a href="/hizmetler" className="hover:underline">{t('navbar.services')}</a></li>
-              <li className="py-2 sm:py-0"><a href="/hakkimizda" className="hover:underline">{t('navbar.about')}</a></li>
+              <li className="py-2 sm:py-0"><a href="/doktorlarimiz" className="hover:underline">{t('navbar.doctors')}</a></li>
               <li className="py-2 sm:py-0"><a href="/iletisim" className="hover:underline">{t('navbar.contact')}</a></li>
               <li className="py-2 sm:py-0"><a href="/randevu" className="hover:underline">{t('navbar.appointment')}</a></li>
             </ul>
@@ -93,9 +93,12 @@ function Doktorlarimiz() {
               <div key={index} className="bg-gray-50 p-6 rounded-lg shadow-lg">
                 <div className="flex flex-col sm:flex-row gap-6">
                   <div className="w-full sm:w-1/3">
-                    <div className="bg-gray-200 h-56 sm:h-64 rounded-lg flex items-center justify-center">
-                      <p className="text-base sm:text-lg text-gray-600">{doctor.imagePlaceholder}</p>
-                    </div>
+                    <img
+                      src={doctor.image}
+                      alt={doctor.name}
+                      className="h-56 sm:h-64 w-full object-cover rounded-lg"
+                      onError={(e) => (e.target.src = "/src/assets/placeholder-doctor.jpg")} // Yüklenemezse yedek görsel
+                    />
                   </div>
                   <div className="w-full sm:w-2/3">
                     <h3 className="text-2xl font-bold mb-2">{doctor.name}</h3>
