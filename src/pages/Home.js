@@ -12,13 +12,13 @@ function Home() {
   };
 
   const hizmetler = [
-    { name: t('services.hair_transplant'), path: "/sac-ekimi", description: "FUE ve DHI teknikleriyle kalıcı ve doğal saç ekimi." },
-    { name: t('services.rhinoplasty'), path: "/burun-estetigi", description: "Yüzünüze uyumlu, estetik bir burun tasarımı." },
-    { name: t('services.breast_aesthetics'), path: "/meme-estetigi", description: "Doğal görünüm için meme büyütme, küçültme ve dikleştirme." },
-    { name: t('services.facial_aesthetics'), path: "/yuz-estetigi", description: "Yüz germe, boyun estetiği ve gençleştirme işlemleri." },
-    { name: t('services.fillers_botox'), path: "/dolgu-botoks", description: "Kırışıklık tedavisi ve hacim kazandırma." },
-    { name: t('services.dental_treatments'), path: "/dis-tedavileri", description: "İmplant, zirkonyum kaplama ve estetik diş çözümleri." },
-    { name: t('services.tummy_tuck'), path: "/karin-germe", description: "Daha düz ve sıkı bir karın için karın germe." },
+    { name: t('service_names.hair_transplant'), path: "/sac-ekimi", description: "FUE ve DHI teknikleriyle kalıcı ve doğal saç ekimi." },
+    { name: t('service_names.rhinoplasty'), path: "/burun-estetigi", description: "Yüzünüze uyumlu, estetik bir burun tasarımı." },
+    { name: t('service_names.breast_aesthetics'), path: "/meme-estetigi", description: "Doğal görünüm için meme büyütme, küçültme ve dikleştirme." },
+    { name: t('service_names.facial_aesthetics'), path: "/yuz-estetigi", description: "Yüz germe, boyun estetiği ve gençleştirme işlemleri." },
+    { name: t('service_names.fillers_botox'), path: "/dolgu-botoks", description: "Kırışıklık tedavisi ve hacim kazandırma." },
+    { name: t('service_names.dental_treatments'), path: "/dis-tedavileri", description: "İmplant, zirkonyum kaplama ve estetik diş çözümleri." },
+    { name: t('service_names.tummy_tuck'), path: "/karin-germe", description: "Daha düz ve sıkı bir karın için karın germe." },
   ];
 
   return (
@@ -98,7 +98,7 @@ function Home() {
       {/* Services Section - Kaydırılabilir */}
       <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8">{t('services')}</h3>
+          <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8">Hizmetlerimiz</h3>
           <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory">
             <div className="flex space-x-4 sm:space-x-6 pb-4">
               {hizmetler.map((hizmet, index) => (
