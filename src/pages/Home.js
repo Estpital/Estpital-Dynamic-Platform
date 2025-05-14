@@ -26,14 +26,35 @@ function HeadModel({ isMobile }) {
       scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
       // Modelin başlangıç konumunu ayarla
-      scene.position.set(0, 0, 0);
+      scene.position.set(0, isMobile ? -0.5 : 0, 0);
     }
   }, [scene, isMobile]);
 
-  // Tıklama olayını yönet (şimdilik sadece test için)
+  // Tıklama olayını yönet
   const handleClick = (event) => {
     const mesh = event.object;
-    console.log('Tıklanan bölge:', mesh.name || 'Bilinmeyen bölge');
+    const position = mesh.position;
+
+    // Bölge tanımları (basit bir Y ekseni kontrolü)
+    if (position.y > 1.2) {
+      // Saç bölgesi
+      window.location.href = '/sac-ekimi';
+    } else if (position.y > 0.8) {
+      // Yüz bölgesi
+      window.location.href = '/yuz-estetigi';
+    } else if (position.y > 0.4) {
+      // Boyun bölgesi
+      window.location.href = '/yuz-estetigi';
+    } else if (position.y > 0.0) {
+      // Göğüs bölgesi
+      window.location.href = '/meme-estetigi';
+    } else if (position.y > -0.4) {
+      // Karın bölgesi
+      window.location.href = '/karin-germe';
+    } else {
+      // Bel bölgesi
+      window.location.href = '/karin-germe';
+    }
   };
 
   return <primitive object={scene} ref={modelRef} onClick={handleClick} />;
@@ -49,7 +70,14 @@ function Home() {
       <Navbar />
 
       {/* Model Bölümü (Sayfa açıldığında direkt model görünecek) */}
-      <section className="bg-white py-8">
+      <section className="bg-white py-8 relative">
+        {isMobile && (
+          <div className="absolute top-12 left-0 w-full text-center z-10">
+            <h2 className="text-xl sm:text-2xl font-bold text-blue-700">
+              Kendini dönüştürmeye hazır mısın?
+            </h2>
+          </div>
+        )}
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
           <div className={`md:w-1/3 ${isMobile ? 'hidden' : 'block'} text-center md:text-left`}></div>
           <div className={`w-full ${isMobile ? 'w-full h-screen' : 'md:w-1/3 h-[70vh]'}`}>
@@ -72,14 +100,21 @@ function Home() {
                   enableRotate={true}
                   minAzimuthAngle={-Math.PI * 0.75} // -135 derece
                   maxAzimuthAngle={Math.PI * 0.75} // 135 derece
-                  minPolarAngle={Math.PI / 2} // Yukarı-aşağı dönüşü kilitle
-                  maxPolarAngle={Math.PI / 2} // Yukarı-aşağı dönüşü kilitle
+                  minPolarAngle={Math.PI / 2 - 0.2} // 90 - 11.5 derece (~%10-20)
+                  maxPolarAngle={Math.PI / 2 + 0.2} // 90 + 11.5 derece (~%10-20)
                 />
               </Suspense>
             </Canvas>
           </div>
           <div className={`md:w-1/3 ${isMobile ? 'hidden' : 'block'} text-center md:text-right`}></div>
         </div>
+        {isMobile && (
+          <div className="absolute bottom-12 left-0 w-full text-center z-10">
+            <p className="text-sm sm:text-base text-gray-600">
+              Vücudunuzda dönüştürmek istediğiniz bölgeleri seçin. Dönüşüm yolculuğunuza başlayalım.
+            </p>
+          </div>
+        )}
       </section>
 
       {/* Services Section - Kaydırılabilir */}
