@@ -438,23 +438,4 @@ function SacEkimi() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4">Hayalinizdeki Görünüme Kavuşun!</h3>
             <a
               href="/randevu"
-              className="inline-block bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-800 text-sm sm:text-lg"
-            >
-              {t('appointment')}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-blue-900 text-white p-4 sm:p-6">
-        <div className="container mx-auto text-center text-sm sm:text-base">
-          <p className="mb-2">{t('footer_copyright')}</p>
-          <p>{t('footer_contact')}</p>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-export default SacEkimi;
+              className="inline-block bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue
