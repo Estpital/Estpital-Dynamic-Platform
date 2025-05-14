@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar';
 
 // Görselleri import et
 import DrGizemKagitci from '../assets/dr-gizem-kagitci-sac-ekimi.jpg';
-import PlaceholderDoctor from '../assets/placeholder-doctor.jpg';
 
 function SacEkimi() {
   const { t } = useTranslation();
@@ -195,7 +194,6 @@ function SacEkimi() {
                   src={DrGizemKagitci}
                   alt="Dr. Gizem Kağıtçı"
                   className="h-48 sm:h-64 w-full object-cover rounded-lg"
-                  onError={(e) => (e.target.src = PlaceholderDoctor)} // Yüklenemezse yedek görsel
                 />
               </div>
               <div className="md:w-2/3">
