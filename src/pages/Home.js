@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, PerspectiveCamera } from '@react-three/drei';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { Box3, Vector3 } from 'three';
+import { Box3, Vector3, MeshBasicMaterial } from 'three';
 
 // 3D Model Bileşeni
 function HeadModel({ isMobile }) {
@@ -25,36 +25,54 @@ function HeadModel({ isMobile }) {
       const scaleFactor = isMobile ? 3 / maxDim : 2.5 / maxDim; // Mobil için daha büyük ölçek
       scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
-      // Modelin başlangıç konumunu ayarla
-      scene.position.set(0, isMobile ? -0.5 : 0, 0);
+      // Modelin başlangıç konumunu ayarla (saç kısmı görünecek şekilde yukarı kaydır)
+      scene.position.set(0, isMobile ? 0.5 : 1, 0);
+
+      // Modeli üç farklı renge ayır
+      scene.traverse((child) => {
+        if (child.isMesh) {
+          const position = child.position;
+          if (position.y > 1.0) {
+            // Baş kısmı (saç dahil)
+            child.material = new MeshBasicMaterial({ color: '#FF5555' }); // Kırmızı
+            child.userData.region = 'Saç Bölgesi';
+          } else if (position.y > -0.4) {
+            // Gövde (belden başa kadar)
+            child.material = new MeshBasicMaterial({ color: '#55FF55' }); // Yeşil
+            child.userData.region = position.y > 0.0 ? 'Göğüs Bölgesi' : 'Karın Bölgesi';
+          } else {
+            // Belden aşağısı
+            child.material = new MeshBasicMaterial({ color: '#5555FF' }); // Mavi
+            child.userData.region = 'Bel Bölgesi';
+          }
+        }
+      });
+
+      // Sayfaya girildiğinde konuşma başlat
+      const utterance = new SpeechSynthesisUtterance('Merhaba! Ben Grok, seni dönüştürmeye hazır mısın? Hangi bölgeni değiştirmek istersin?');
+      utterance.lang = 'tr-TR'; // Türkçe dil ayarı
+      window.speechSynthesis.speak(utterance);
     }
   }, [scene, isMobile]);
 
   // Tıklama olayını yönet
   const handleClick = (event) => {
     const mesh = event.object;
-    const position = mesh.position;
+    const region = mesh.userData.region;
 
-    // Bölge tanımları (basit bir Y ekseni kontrolü)
-    if (position.y > 1.2) {
-      // Saç bölgesi
+    // Bölgeye göre yönlendirme
+    if (region === 'Saç Bölgesi') {
       window.location.href = '/sac-ekimi';
-    } else if (position.y > 0.8) {
-      // Yüz bölgesi
-      window.location.href = '/yuz-estetigi';
-    } else if (position.y > 0.4) {
-      // Boyun bölgesi
-      window.location.href = '/yuz-estetigi';
-    } else if (position.y > 0.0) {
-      // Göğüs bölgesi
+    } else if (region === 'Göğüs Bölgesi') {
       window.location.href = '/meme-estetigi';
-    } else if (position.y > -0.4) {
-      // Karın bölgesi
-      window.location.href = '/karin-germe';
-    } else {
-      // Bel bölgesi
+    } else if (region === 'Karın Bölgesi' || region === 'Bel Bölgesi') {
       window.location.href = '/karin-germe';
     }
+
+    // Tıklama sonrası konuşma
+    const utterance = new SpeechSynthesisUtterance(`Harika, ${region} seçtin! Bu bölgede nasıl bir dönüşüm yapmak istersin?`);
+    utterance.lang = 'tr-TR';
+    window.speechSynthesis.speak(utterance);
   };
 
   return <primitive object={scene} ref={modelRef} onClick={handleClick} />;
@@ -63,6 +81,20 @@ function HeadModel({ isMobile }) {
 function Home() {
   const { t } = useTranslation();
   const isMobile = window.innerWidth <= 768;
+  const controlsRef = useRef();
+
+  // Zoom sonrası kamera pozisyonunu güncelle
+  useEffect(() => {
+    const controls = controlsRef.current;
+    if (controls) {
+      const updateCamera = () => {
+        controls.target.set(0, isMobile ? 0.5 : 1, 0); // Modelin merkezine sabitle
+        controls.update();
+      };
+      controls.addEventListener('change', updateCamera);
+      return () => controls.removeEventListener('change', updateCamera);
+    }
+  }, [isMobile]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -85,23 +117,34 @@ function Home() {
               <Suspense fallback={null}>
                 <PerspectiveCamera 
                   makeDefault 
-                  position={[0, 0, 5]} // Kamerayı modelden uzaklaştırıyoruz
+                  position={[0, 1, 5]} // Kamerayı modelin üst kısmını görecek şekilde ayarladık
                   fov={isMobile ? 70 : 50} // Mobil için daha geniş görüş açısı
                 />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
                 <HeadModel isMobile={isMobile} />
                 <OrbitControls 
-                  enablePan={false} 
-                  minDistance={isMobile ? 2 : 1.5}
-                  maxDistance={isMobile ? 5 : 4}
-                  target={[0, 0, 0]}
+                  ref={controlsRef}
+                  enablePan={true} // Kaydırma açık
+                  panSpeed={0.5}
                   enableZoom={true}
                   enableRotate={true}
+                  minDistance={isMobile ? 2 : 1.5}
+                  maxDistance={isMobile ? 5 : 4}
+                  target={[0, isMobile ? 0.5 : 1, 0]} // Modelin merkezine sabitle
                   minAzimuthAngle={-Math.PI * 0.75} // -135 derece
                   maxAzimuthAngle={Math.PI * 0.75} // 135 derece
                   minPolarAngle={Math.PI / 2 - 0.2} // 90 - 11.5 derece (~%10-20)
                   maxPolarAngle={Math.PI / 2 + 0.2} // 90 + 11.5 derece (~%10-20)
+                  onChange={() => {
+                    // Sadece yukarı-aşağı kaydırmaya izin ver
+                    const controls = controlsRef.current;
+                    if (controls) {
+                      const panDelta = controls.getPanDelta();
+                      panDelta.x = 0; // Yatay kaydırmayı devre dışı bırak
+                      controls.pan(panDelta);
+                    }
+                  }}
                 />
               </Suspense>
             </Canvas>
