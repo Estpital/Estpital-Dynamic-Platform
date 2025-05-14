@@ -2,13 +2,25 @@ import { useTranslation } from 'react-i18next';
 import Navbar from '../components/Navbar';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, PerspectiveCamera } from '@react-three/drei';
-import { Suspense, useEffect, useRef } from 'react';
-import { Box3, Vector3 } from 'three';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { Box3, Vector3, MeshBasicMaterial, LineBasicMaterial, BufferGeometry, Vector3 as ThreeVector3, Line } from 'three';
 
 // 3D Model Bileşeni
-function HeadModel({ isMobile }) {
+function HeadModel({ isMobile, onRegionClick }) {
   const { scene } = useGLTF('/assets/scene.gltf'); // .gltf dosyasının yolu
   const modelRef = useRef();
+  const [selectedRegion, setSelectedRegion] = useState(null);
+
+  // Bölge tanımları ve renkleri
+  const regions = [
+    { name: 'Saç Bölgesi', color: '#FF5555', position: [0, 1.5, 0], bounds: { minY: 1.2, maxY: Infinity } }, // Kafa üstü
+    { name: 'Yüz Bölgesi', color: '#55FF55', position: [0, 1.0, 0], bounds: { minY: 0.8, maxY: 1.2 } }, // Yüz
+    { name: 'Boyun Bölgesi', color: '#5555FF', position: [0, 0.6, 0], bounds: { minY: 0.4, maxY: 0.8 } }, // Boyun
+    { name: 'Göğüs Bölgesi', color: '#FFFF55', position: [0, 0.2, 0], bounds: { minY: 0.0, maxY: 0.4 } }, // Göğüs
+    { name: 'Karın Bölgesi', color: '#FF55FF', position: [0, -0.2, 0], bounds: { minY: -0.4, maxY: 0.0 } }, // Karın
+    { name: 'Bel Bölgesi', color: '#55FFFF', position: [0, -0.6, 0], bounds: { minY: -0.8, maxY: -0.4 } }, // Bel
+    { name: 'Kol Kasları', color: '#FFA500', position: [0.5, 0.2, 0], bounds: { minX: 0.3, maxX: Infinity, minY: 0.0, maxY: 0.4 } }, // Kollar
+  ];
 
   // Sınırlayıcı kutuyu hesapla ve modeli merkeze al
   useEffect(() => {
@@ -22,95 +34,101 @@ function HeadModel({ isMobile }) {
 
       // Modelin ölçeğini ekran boyutuna göre ayarla
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scaleFactor = isMobile ? 2 / maxDim : 3 / maxDim; // Mobil için daha küçük ölçek
+      const scaleFactor = isMobile ? 3 / maxDim : 4 / maxDim; // Mobil için biraz daha büyük ölçek
       scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
       // Modelin başlangıç konumunu ayarla
       scene.position.set(0, 0, 0);
+
+      // Bölgelere göre renklendirme
+      scene.traverse((child) => {
+        if (child.isMesh) {
+          const position = child.position;
+          const region = regions.find((r) => {
+            const inYBounds = position.y >= (r.bounds.minY || -Infinity) && position.y <= (r.bounds.maxY || Infinity);
+            const inXBounds = !r.bounds.minX || (position.x >= (r.bounds.minX || -Infinity) && position.x <= (r.bounds.maxX || Infinity));
+            return inYBounds && inXBounds;
+          });
+
+          if (region) {
+            child.material = new MeshBasicMaterial({ color: region.color });
+            child.userData.region = region.name;
+          }
+        }
+      });
     }
   }, [scene, isMobile]);
 
-  return <primitive object={scene} ref={modelRef} />;
+  // Tıklama olayını yönet
+  const handleClick = (event) => {
+    const mesh = event.object;
+    if (mesh.userData.region) {
+      setSelectedRegion(mesh.userData.region);
+      onRegionClick(mesh.userData.region);
+    }
+  };
+
+  return (
+    <>
+      <primitive object={scene} ref={modelRef} onClick={handleClick} />
+      {selectedRegion && (
+        <group>
+          {/* Çubuk ve isim etiketi */}
+          {regions.map((region) => {
+            if (region.name === selectedRegion) {
+              const startPoint = new ThreeVector3(region.position[0], region.position[1], region.position[2]);
+              const endPoint = startPoint.clone().add(new ThreeVector3(isMobile ? 2 : 3, 0, 0)); // Çubuğun uzunluğu
+              const points = [startPoint, endPoint];
+              const geometry = new BufferGeometry().setFromPoints(points);
+              return (
+                <line key={region.name} geometry={geometry}>
+                  <lineBasicMaterial color={region.color} linewidth={2} />
+                </line>
+              );
+            }
+            return null;
+          })}
+        </group>
+      )}
+    </>
+  );
 }
 
 function Home() {
   const { t } = useTranslation();
-
-  // Mobil cihaz kontrolü
+  const [selectedRegion, setSelectedRegion] = useState(null);
+  const [cameraPosition, setCameraPosition] = useState([0, 0, 5]);
   const isMobile = window.innerWidth <= 768;
 
-  const hizmetler = [
-    { 
-      name: t('service_names.hair_transplant'), 
-      path: "/sac-ekimi", 
-      description: "FUE ve DHI teknikleriyle kalıcı ve doğal saç ekimi.",
-      icon: (
-        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-12h2v2h-2zm0 4h2v2h-2zm0 4h2v2h-2z"/>
-        </svg>
-      )
-    },
-    { 
-      name: t('service_names.rhinoplasty'), 
-      path: "/burun-estetigi", 
-      description: "Yüzünüze uyumlu, estetik bir burun tasarımı.",
-      icon: (
-        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-8h2v4h-2zm-2-2h6l-3-4z"/>
-        </svg>
-      )
-    },
-    { 
-      name: t('service_names.breast_aesthetics'), 
-      path: "/meme-estetigi", 
-      description: "Doğal görünüm için meme büyütme, küçültme ve dikleştirme.",
-      icon: (
-        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-3-6h6v2H9z"/>
-        </svg>
-      )
-    },
-    { 
-      name: t('service_names.facial_aesthetics'), 
-      path: "/yuz-estetigi", 
-      description: "Yüz germe, boyun estetiği ve gençleştirme işlemleri.",
-      icon: (
-        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-2-8h4v2h-4z"/>
-        </svg>
-      )
-    },
-    { 
-      name: t('service_names.fillers_botox'), 
-      path: "/dolgu-botoks", 
-      description: "Kırışıklık tedavisi ve hacim kazandırma.",
-      icon: (
-        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-8h2v4h-2zm-2-2l6 6m-6 0l6-6"/>
-        </svg>
-      )
-    },
-    { 
-      name: t('service_names.dental_treatments'), 
-      path: "/dis-tedavileri", 
-      description: "İmplant, zirkonyum kaplama ve estetik diş çözümleri.",
-      icon: (
-        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-2-6h4v2h-4zm-1-4h6v2H9z"/>
-        </svg>
-      )
-    },
-    { 
-      name: t('service_names.tummy_tuck'), 
-      path: "/karin-germe", 
-      description: "Daha düz ve sıkı bir karın için karın germe.",
-      icon: (
-        <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-3-6h6v2H9z"/>
-        </svg>
-      )
-    },
-  ];
+  const handleRegionClick = (region) => {
+    setSelectedRegion(region);
+    // Bölgeye göre kamerayı yakınlaştır
+    switch (region) {
+      case 'Saç Bölgesi':
+        setCameraPosition([0, 1.5, 2]);
+        break;
+      case 'Yüz Bölgesi':
+        setCameraPosition([0, 1.0, 2]);
+        break;
+      case 'Boyun Bölgesi':
+        setCameraPosition([0, 0.6, 2]);
+        break;
+      case 'Göğüs Bölgesi':
+        setCameraPosition([0, 0.2, 2]);
+        break;
+      case 'Karın Bölgesi':
+        setCameraPosition([0, -0.2, 2]);
+        break;
+      case 'Bel Bölgesi':
+        setCameraPosition([0, -0.6, 2]);
+        break;
+      case 'Kol Kasları':
+        setCameraPosition([0.5, 0.2, 2]);
+        break;
+      default:
+        setCameraPosition([0, 0, 5]);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -119,10 +137,10 @@ function Home() {
 
       {/* Hero Section */}
       <section className="bg-blue-100 py-12 sm:py-20 text-center">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
-          <div className="md:w-1/2 text-center md:text-left">
+        <div className="container mx-auto px-4 flex flex-col items-center justify-between">
+          <div className="w-full text-center mb-8">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">{t('welcome')}</h2>
-            <p className="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto md:mx-0">
+            <p className="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto">
               {t('welcome_desc')}
             </p>
             <a
@@ -132,28 +150,36 @@ function Home() {
               {t('appointment')}
             </a>
           </div>
-          <div className="md:w-1/2 mt-8 md:mt-0 h-[50vh] md:h-[60vh] w-full">
+          <div className={`w-full ${isMobile ? 'h-[80vh]' : 'h-[60vh]'} mt-8`}>
             <Canvas>
               <Suspense fallback={null}>
                 <PerspectiveCamera 
                   makeDefault 
-                  position={[0, 0, 5]} // Kamerayı modelden uzaklaştırıyoruz
-                  fov={isMobile ? 60 : 50} // Mobil cihazlarda daha geniş bir görüş açısı
+                  position={cameraPosition}
+                  fov={isMobile ? 60 : 50}
                 />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
-                <HeadModel isMobile={isMobile} />
+                <HeadModel isMobile={isMobile} onRegionClick={handleRegionClick} />
                 <OrbitControls 
                   enablePan={false} 
-                  minDistance={isMobile ? 3 : 2} // Mobil cihazlarda daha uzak yakınlaştırma
-                  maxDistance={isMobile ? 6 : 5} // Maksimum uzaklık
-                  target={[0, 0, 0]} // Modelin merkezine odaklan
-                  autoRotate={true} // Otomatik dönme efekti
-                  autoRotateSpeed={1.0} // Dönme hızı
+                  minDistance={isMobile ? 2 : 1.5}
+                  maxDistance={isMobile ? 5 : 4}
+                  target={[0, 0, 0]}
+                  enableZoom={true}
+                  enableRotate={true}
+                  minAzimuthAngle={-Math.PI * 0.75} // -135 derece (270 derece dönüşün yarısı)
+                  maxAzimuthAngle={Math.PI * 0.75} // 135 derece
                 />
               </Suspense>
             </Canvas>
           </div>
+          {selectedRegion && (
+            <div className="mt-4 text-center">
+              <p className="text-lg font-semibold text-blue-700">{selectedRegion}</p>
+              <p className="text-sm text-gray-600">Bu bölgeyi seçmek için tekrar tıklayın.</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -163,7 +189,78 @@ function Home() {
           <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8">Hizmetlerimiz</h3>
           <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory">
             <div className="flex space-x-4 sm:space-x-6 pb-4">
-              {hizmetler.map((hizmet, index) => (
+              {[
+                { 
+                  name: t('service_names.hair_transplant'), 
+                  path: "/sac-ekimi", 
+                  description: "FUE ve DHI teknikleriyle kalıcı ve doğal saç ekimi.",
+                  icon: (
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-12h2v2h-2zm0 4h2v2h-2zm0 4h2v2h-2z"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: t('service_names.rhinoplasty'), 
+                  path: "/burun-estetigi", 
+                  description: "Yüzünüze uyumlu, estetik bir burun tasarımı.",
+                  icon: (
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-8h2v4h-2zm-2-2h6l-3-4z"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: t('service_names.breast_aesthetics'), 
+                  path: "/meme-estetigi", 
+                  description: "Doğal görünüm için meme büyütme, küçültme ve dikleştirme.",
+                  icon: (
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-3-6h6v2H9z"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: t('service_names.facial_aesthetics'), 
+                  path: "/yuz-estetigi", 
+                  description: "Yüz germe, boyun estetiği ve gençleştirme işlemleri.",
+                  icon: (
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-2-8h4v2h-4z"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: t('service_names.fillers_botox'), 
+                  path: "/dolgu-botoks", 
+                  description: "Kırışıklık tedavisi ve hacim kazandırma.",
+                  icon: (
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-8h2v4h-2zm-2-2l6 6m-6 0l6-6"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: t('service_names.dental_treatments'), 
+                  path: "/dis-tedavileri", 
+                  description: "İmplant, zirkonyum kaplama ve estetik diş çözümleri.",
+                  icon: (
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-2-6h4v2h-4zm-1-4h6v2H9z"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: t('service_names.tummy_tuck'), 
+                  path: "/karin-germe", 
+                  description: "Daha düz ve sıkı bir karın için karın germe.",
+                  icon: (
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-blue-700 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-3-6h6v2H9z"/>
+                    </svg>
+                  )
+                },
+              ].map((hizmet, index) => (
                 <a
                   key={index}
                   href={hizmet.path}
