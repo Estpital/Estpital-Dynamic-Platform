@@ -208,7 +208,7 @@ function SacEkimi() {
               </div>
               <div className="md:w-2/3">
                 <p className="text-base sm:text-lg mb-4">
-                  Dr. Gizem Kağıtçı, saç ekimi ve medikal estetik alanında 10 yılı aşkın deneyime sahip bir uzmandır. İstanbul Üniversitesi Tıp Fakültesi’nden mezun olan Dr. Kağıtçı, uzmanlığını plastik cerrahi ve saç ekimi teknikleri üzerine tamamlamıştır. Türk Plastik, Rekonstrüktif ve Estetik Cerrahi Derneği üyesidir ve ulusal/uluslararası kongreleri takip ederek en güncel yöntemleri hastalarına sunar.
+                  Dr. Gizem Kağıtçı, saç ekimi ve medikal estetik alanında 10 yılı aşkın deneyime sahip bir uzmandır. Tekirdağ Namık Kemal Üniversitesi Tıp Fakültesi’nden mezun olmuştur. Özellikle sedasyonlu saç ekimi, eksozom tedavisi ve DHI yöntemiyle doğal ve kalıcı sonuçlar sunar.
                 </p>
                 <p className="text-base sm:text-lg mb-4">
                   Dr. Kağıtçı, özellikle sedasyonlu saç ekimiyle hastalarına stressiz ve ağrısız bir deneyim sunar. Ayrıca, eksozom tedavisiyle saç ekimi işlemlerini kombine ederek ekilen saçların tutunma oranını artırır ve iyileşme sürecini hızlandırır. DHI yöntemiyle tıraşsız ekim, doğal görünüm ve hızlı iyileşme avantajlarını hastalarına sunmaktadır.
@@ -438,4 +438,23 @@ function SacEkimi() {
             <h3 className="text-xl sm:text-2xl font-bold mb-4">Hayalinizdeki Görünüme Kavuşun!</h3>
             <a
               href="/randevu"
-              className="inline-block bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue
+              className="inline-block bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-800 text-sm sm:text-lg"
+            >
+              {t('appointment')}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-blue-900 text-white p-4 sm:p-6">
+        <div className="container mx-auto text-center text-sm sm:text-base">
+          <p className="mb-2">{t('footer_copyright')}</p>
+          <p>{t('footer_contact')}</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default SacEkimi;
