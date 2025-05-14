@@ -42,21 +42,23 @@ function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section - Kaydırılabilir */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h3 className="text-3xl font-bold text-center mb-12">Hizmetlerimiz</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {hizmetler.map((hizmet, index) => (
-              <a
-                key={index}
-                href={hizmet.path}
-                className="block bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition"
-              >
-                <h4 className="text-xl font-semibold mb-2">{hizmet.name}</h4>
-                <p className="text-lg">{hizmet.description}</p>
-              </a>
-            ))}
+          <h3 className="text-3xl font-bold text-center mb-8">Hizmetlerimiz</h3>
+          <div className="overflow-x-auto scrollbar-hide">
+            <div className="flex space-x-6 pb-4">
+              {hizmetler.map((hizmet, index) => (
+                <a
+                  key={index}
+                  href={hizmet.path}
+                  className="min-w-[250px] bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition"
+                >
+                  <h4 className="text-xl font-semibold mb-2">{hizmet.name}</h4>
+                  <p className="text-lg">{hizmet.description}</p>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
