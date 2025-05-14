@@ -187,9 +187,12 @@ function SacEkimi() {
             <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8">Uzman Doktorumuz: Dr. Gizem Kağıtçı</h3>
             <div className="flex flex-col md:flex-row gap-8 max-w-4xl mx-auto">
               <div className="md:w-1/3">
-                <div className="bg-gray-200 h-48 sm:h-64 rounded-lg flex items-center justify-center">
-                  <p className="text-base sm:text-lg text-gray-600">[Dr. Gizem Kağıtçı’nın Fotoğrafı - İleride Eklenecek]</p>
-                </div>
+                <img
+                  src="/src/assets/dr-gizem-kagitci-sac-ekimi.jpg"
+                  alt="Dr. Gizem Kağıtçı"
+                  className="h-48 sm:h-64 w-full object-cover rounded-lg"
+                  onError={(e) => (e.target.src = "/src/assets/placeholder-doctor.jpg")} // Yüklenemezse yedek görsel
+                />
               </div>
               <div className="md:w-2/3">
                 <p className="text-base sm:text-lg mb-4">
