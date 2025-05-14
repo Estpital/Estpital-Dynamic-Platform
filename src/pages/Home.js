@@ -1,7 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
 function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const hizmetler = [
     { name: t('services.hair_transplant'), path: "/sac-ekimi", description: "FUE ve DHI teknikleriyle kalıcı ve doğal saç ekimi." },
@@ -19,13 +23,30 @@ function Home() {
       <nav className="bg-blue-700 text-white p-4 sticky top-0 z-20">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
           <h1 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-0">Estpital International Agency</h1>
-          <ul className="flex flex-wrap justify-center sm:justify-end space-x-2 sm:space-x-6 text-sm sm:text-base">
-            <li><a href="/" className="hover:underline py-1">{t('navbar.home')}</a></li>
-            <li><a href="/hizmetler" className="hover:underline py-1">{t('navbar.services')}</a></li>
-            <li><a href="/hakkimizda" className="hover:underline py-1">{t('navbar.about')}</a></li>
-            <li><a href="/iletisim" className="hover:underline py-1">{t('navbar.contact')}</a></li>
-            <li><a href="/randevu" className="hover:underline py-1">{t('navbar.appointment')}</a></li>
-          </ul>
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6">
+            <ul className="flex flex-wrap justify-center sm:justify-end space-x-2 sm:space-x-6 text-sm sm:text-base">
+              <li><a href="/" className="hover:underline py-1">{t('navbar.home')}</a></li>
+              <li><a href="/hizmetler" className="hover:underline py-1">{t('navbar.services')}</a></li>
+              <li><a href="/hakkimizda" className="hover:underline py-1">{t('navbar.about')}</a></li>
+              <li><a href="/iletisim" className="hover:underline py-1">{t('navbar.contact')}</a></li>
+              <li><a href="/randevu" className="hover:underline py-1">{t('navbar.appointment')}</a></li>
+            </ul>
+            {/* Dil Navigatörü */}
+            <div className="flex space-x-2 mt-2 sm:mt-0">
+              <button
+                onClick={() => changeLanguage('tr')}
+                className={`px-2 py-1 rounded text-sm sm:text-base ${i18n.language === 'tr' ? 'bg-blue-900' : 'bg-blue-600'} hover:bg-blue-800 transition`}
+              >
+                TR
+              </button>
+              <button
+                onClick={() => changeLanguage('en')}
+                className={`px-2 py-1 rounded text-sm sm:text-base ${i18n.language === 'en' ? 'bg-blue-900' : 'bg-blue-600'} hover:bg-blue-800 transition`}
+              >
+                EN
+              </button>
+            </div>
+          </div>
         </div>
       </nav>
 
@@ -115,4 +136,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Home
