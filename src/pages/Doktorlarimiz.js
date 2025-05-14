@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 // Görselleri import et
 import DrGizemKagitci from '../assets/dr-gizem-kagitci-sac-ekimi.jpg';
 import DrUmmahanOzaslan from '../assets/dr-ummahan-ozaslan.jpg';
-import PlaceholderDoctor from '../assets/placeholder-doctor.jpg';
 
 function Doktorlarimiz() {
   const { t, i18n } = useTranslation();
@@ -50,7 +49,6 @@ function Doktorlarimiz() {
                       src={doctor.image}
                       alt={doctor.name}
                       className="h-56 sm:h-64 w-full object-cover rounded-lg"
-                      onError={(e) => (e.target.src = PlaceholderDoctor)} // Yüklenemezse yedek görsel
                     />
                   </div>
                   <div className="w-full sm:w-2/3">
