@@ -1,5 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import Navbar from '../components/Navbar';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
+import { Suspense } from 'react';
+
+// 3D Model Bileşeni
+function HeadModel() {
+  const { scene } = useGLTF('/assets/human-head.glb'); // 3D model dosyasının yolu
+  return <primitive object={scene} scale={1.5} position={[0, -1, 0]} />;
+}
 
 function Home() {
   const { t } = useTranslation();
@@ -84,17 +93,29 @@ function Home() {
 
       {/* Hero Section */}
       <section className="bg-blue-100 py-12 sm:py-20 text-center">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">{t('welcome')}</h2>
-          <p className="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto">
-            {t('welcome_desc')}
-          </p>
-          <a
-            href="/randevu"
-            className="inline-block bg-blue-700 text-white px-5 py-2 sm:px-6 sm:py-3 text-base sm:text-lg rounded-lg hover:bg-blue-800"
-          >
-            {t('appointment')}
-          </a>
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+          <div className="md:w-1/2 text-center md:text-left">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">{t('welcome')}</h2>
+            <p className="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto md:mx-0">
+              {t('welcome_desc')}
+            </p>
+            <a
+              href="/randevu"
+              className="inline-block bg-blue-700 text-white px-5 py-2 sm:px-6 sm:py-3 text-base sm:text-lg rounded-lg hover:bg-blue-800"
+            >
+              {t('appointment')}
+            </a>
+          </div>
+          <div className="md:w-1/2 mt-8 md:mt-0 h-64 md:h-96">
+            <Canvas>
+              <Suspense fallback={null}>
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[5, 5, 5]} intensity={1} />
+                <HeadModel />
+                <OrbitControls enablePan={false} />
+              </Suspense>
+            </Canvas>
+          </div>
         </div>
       </section>
 
