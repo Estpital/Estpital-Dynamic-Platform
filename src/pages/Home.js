@@ -41,7 +41,7 @@ function Home() {
             <ul className={`sm:flex sm:space-x-6 text-sm sm:text-base ${isMenuOpen ? 'block' : 'hidden'} sm:block absolute sm:static top-16 left-0 right-0 bg-blue-700 sm:bg-transparent p-4 sm:p-0 z-10`}>
               <li className="py-2 sm:py-0"><a href="/" className="hover:underline">{t('navbar.home')}</a></li>
               <li className="py-2 sm:py-0"><a href="/hizmetler" className="hover:underline">{t('navbar.services')}</a></li>
-              <li className="py-2 sm:py-0"><a href="/hakkimizda" className="hover:underline">{t('navbar.about')}</a></li>
+              <li className="py-2 sm:py-0"><a href="/doktorlarimiz" className="hover:underline">{t('navbar.doctors')}</a></li>
               <li className="py-2 sm:py-0"><a href="/iletisim" className="hover:underline">{t('navbar.contact')}</a></li>
               <li className="py-2 sm:py-0"><a href="/randevu" className="hover:underline">{t('navbar.appointment')}</a></li>
             </ul>
