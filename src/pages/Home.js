@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 
 // 3D Model Bileşeni
 function HeadModel() {
-  const { scene } = useGLTF('https://drive.google.com/uc?export=download&id=1VF0QAntY5nzl_tkz-joMJwmSuACKeVUt');
+  const { scene } = useGLTF('/assets/human-head.glb'); // Orijinal dosya yolu
   return <primitive object={scene} scale={1.5} position={[0, -1, 0]} />;
 }
 
