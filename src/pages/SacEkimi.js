@@ -4,6 +4,15 @@ import Navbar from '../components/Navbar';
 
 // Görselleri import et
 import DrGizemKagitci from '../assets/dr-gizem-kagitci-sac-ekimi.jpg';
+import Before1 from '../assets/before1.jpg';
+import After1 from '../assets/after1.jpg';
+import Before2 from '../assets/before2.jpg';
+import After2 from '../assets/after2.jpg';
+import Before3 from '../assets/before3.jpg';
+import After3 from '../assets/after3.jpg';
+import PlaceholderDoctor from '../assets/placeholder-doctor.jpg';
+import PlaceholderBefore from '../assets/placeholder-before.jpg';
+import PlaceholderAfter from '../assets/placeholder-after.jpg';
 
 function SacEkimi() {
   const { t } = useTranslation();
@@ -194,6 +203,7 @@ function SacEkimi() {
                   src={DrGizemKagitci}
                   alt="Dr. Gizem Kağıtçı"
                   className="h-48 sm:h-64 w-full object-cover rounded-lg"
+                  onError={(e) => (e.target.src = PlaceholderDoctor)} // Yüklenemezse yedek görsel
                 />
               </div>
               <div className="md:w-2/3">
@@ -250,6 +260,90 @@ function SacEkimi() {
               <li>Minimal doku hasarı ve hızlı iyileşme sağlar.</li>
               <li>Doğal görünüm ve yoğun saçlar için ideal bir yöntemdir.</li>
             </ul>
+          </div>
+
+          {/* Öncesi/Sonrası - Kaydırılabilir */}
+          <div className="mb-12">
+            <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8">Saç Ekimi Öncesi ve Sonrası</h3>
+            <p className="text-base sm:text-lg text-center mb-6 max-w-3xl mx-auto">
+              Hastalarımızın saç ekimi öncesi ve sonrası değişimlerini burada görebilirsiniz. Daha fazla örnek görmek için kaydırabilirsiniz.
+            </p>
+            <div className="overflow-x-auto scrollbar-hide">
+              <div className="flex space-x-4 sm:space-x-6 pb-4">
+                {/* Örnek 1 */}
+                <div className="min-w-[250px] sm:min-w-[300px] bg-gray-50 p-4 sm:p-6 rounded-lg shadow">
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <img
+                        src={Before1}
+                        alt="Öncesi"
+                        className="h-40 sm:h-48 w-full object-cover rounded-lg"
+                        onError={(e) => (e.target.src = PlaceholderBefore)} // Yüklenemezse yedek görsel
+                      />
+                      <p className="text-center mt-2 font-semibold text-sm sm:text-base">Öncesi</p>
+                    </div>
+                    <div>
+                      <img
+                        src={After1}
+                        alt="Sonrası"
+                        className="h-40 sm:h-48 w-full object-cover rounded-lg"
+                        onError={(e) => (e.target.src = PlaceholderAfter)} // Yüklenemezse yedek görsel
+                      />
+                      <p className="text-center mt-2 font-semibold text-sm sm:text-base">Sonrası</p>
+                    </div>
+                  </div>
+                  <p className="text-sm sm:text-lg text-center">Hasta 1: Seyrek saç yapısı tamamen doğal bir yoğunluğa kavuştu.</p>
+                </div>
+                {/* Örnek 2 */}
+                <div className="min-w-[250px] sm:min-w-[300px] bg-gray-50 p-4 sm:p-6 rounded-lg shadow">
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <img
+                        src={Before2}
+                        alt="Öncesi"
+                        className="h-40 sm:h-48 w-full object-cover rounded-lg"
+                        onError={(e) => (e.target.src = PlaceholderBefore)} // Yüklenemezse yedek görsel
+                      />
+                      <p className="text-center mt-2 font-semibold text-sm sm:text-base">Öncesi</p>
+                    </div>
+                    <div>
+                      <img
+                        src={After2}
+                        alt="Sonrası"
+                        className="h-40 sm:h-48 w-full object-cover rounded-lg"
+                        onError={(e) => (e.target.src = PlaceholderAfter)} // Yüklenemezse yedek görsel
+                      />
+                      <p className="text-center mt-2 font-semibold text-sm sm:text-base">Sonrası</p>
+                    </div>
+                  </div>
+                  <p className="text-sm sm:text-lg text-center">Hasta 2: Ön saç çizgisi yeniden tasarlandı, doğal görünüm elde edildi.</p>
+                </div>
+                {/* Örnek 3 */}
+                <div className="min-w-[250px] sm:min-w-[300px] bg-gray-50 p-4 sm:p-6 rounded-lg shadow">
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <img
+                        src={Before3}
+                        alt="Öncesi"
+                        className="h-40 sm:h-48 w-full object-cover rounded-lg"
+                        onError={(e) => (e.target.src = PlaceholderBefore)} // Yüklenemezse yedek görsel
+                      />
+                      <p className="text-center mt-2 font-semibold text-sm sm:text-base">Öncesi</p>
+                    </div>
+                    <div>
+                      <img
+                        src={After3}
+                        alt="Sonrası"
+                        className="h-40 sm:h-48 w-full object-cover rounded-lg"
+                        onError={(e) => (e.target.src = PlaceholderAfter)} // Yüklenemezse yedek görsel
+                      />
+                      <p className="text-center mt-2 font-semibold text-sm sm:text-base">Sonrası</p>
+                    </div>
+                  </div>
+                  <p className="text-sm sm:text-lg text-center">Hasta 3: Yoğun saç dökülmesi sonrası tam kapsamlı ekim yapıldı.</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Hasta Yorumları */}
