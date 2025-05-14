@@ -34,13 +34,13 @@ function HeadModel({ isMobile, onRegionClick }) {
 
       // Modelin ölçeğini ekran boyutuna göre ayarla
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scaleFactor = isMobile ? 3 / maxDim : 4 / maxDim; // Mobil için biraz daha büyük ölçek
+      const scaleFactor = isMobile ? 1.5 / maxDim : 2 / maxDim; // Daha küçük ölçek
       scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
       // Modelin başlangıç konumunu ayarla
-      scene.position.set(0, 0, 0);
+      scene.position.set(0, isMobile ? -0.5 : 0, 0);
 
-      // Bölgelere göre renklendirme
+      // Bölgelere göre renklendirme (orijinal materyalleri koru)
       scene.traverse((child) => {
         if (child.isMesh) {
           const position = child.position;
@@ -77,7 +77,7 @@ function HeadModel({ isMobile, onRegionClick }) {
           {regions.map((region) => {
             if (region.name === selectedRegion) {
               const startPoint = new ThreeVector3(region.position[0], region.position[1], region.position[2]);
-              const endPoint = startPoint.clone().add(new ThreeVector3(isMobile ? 2 : 3, 0, 0)); // Çubuğun uzunluğu
+              const endPoint = startPoint.clone().add(new ThreeVector3(isMobile ? 1.5 : 2, 0, 0)); // Çubuğun uzunluğu
               const points = [startPoint, endPoint];
               const geometry = new BufferGeometry().setFromPoints(points);
               return (
@@ -143,20 +143,22 @@ function Home() {
             <p className="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto">
               {t('welcome_desc')}
             </p>
-            <a
-              href="/randevu"
-              className="inline-block bg-blue-700 text-white px-5 py-2 sm:px-6 sm:py-3 text-base sm:text-lg rounded-lg hover:bg-blue-800"
-            >
-              {t('appointment')}
-            </a>
+            {!isMobile && (
+              <a
+                href="/randevu"
+                className="inline-block bg-blue-700 text-white px-5 py-2 sm:px-6 sm:py-3 text-base sm:text-lg rounded-lg hover:bg-blue-800"
+              >
+                {t('appointment')}
+              </a>
+            )}
           </div>
-          <div className={`w-full ${isMobile ? 'h-[80vh]' : 'h-[60vh]'} mt-8`}>
+          <div className={`w-full ${isMobile ? 'h-screen' : 'h-[60vh]'} mt-8`}>
             <Canvas>
               <Suspense fallback={null}>
                 <PerspectiveCamera 
                   makeDefault 
                   position={cameraPosition}
-                  fov={isMobile ? 60 : 50}
+                  fov={isMobile ? 70 : 50} // Mobil için daha geniş görüş açısı
                 />
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[5, 5, 5]} intensity={1} />
@@ -168,7 +170,7 @@ function Home() {
                   target={[0, 0, 0]}
                   enableZoom={true}
                   enableRotate={true}
-                  minAzimuthAngle={-Math.PI * 0.75} // -135 derece (270 derece dönüşün yarısı)
+                  minAzimuthAngle={-Math.PI * 0.75} // -135 derece
                   maxAzimuthAngle={Math.PI * 0.75} // 135 derece
                 />
               </Suspense>
