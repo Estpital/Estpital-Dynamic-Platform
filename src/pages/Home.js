@@ -1,4 +1,14 @@
 function Home() {
+  const hizmetler = [
+    { name: "Saç Ekimi", path: "/sac-ekimi", description: "FUE ve DHI teknikleriyle kalıcı ve doğal saç ekimi." },
+    { name: "Burun Estetiği", path: "/burun-estetigi", description: "Yüzünüze uyumlu, estetik bir burun tasarımı." },
+    { name: "Meme Estetiği", path: "/meme-estetigi", description: "Doğal görünüm için meme büyütme, küçültme ve dikleştirme." },
+    { name: "Yüz Estetiği", path: "/yuz-estetigi", description: "Yüz germe, boyun estetiği ve gençleştirme işlemleri." },
+    { name: "Dolgu ve Botoks", path: "/dolgu-botoks", description: "Kırışıklık tedavisi ve hacim kazandırma." },
+    { name: "Diş Tedavileri", path: "/dis-tedavileri", description: "İmplant, zirkonyum kaplama ve estetik diş çözümleri." },
+    { name: "Karın Germe", path: "/karin-germe", description: "Daha düz ve sıkı bir karın için karın germe." },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navbar */}
@@ -32,26 +42,21 @@ function Home() {
         </div>
       </section>
 
-      {/* Services Preview */}
+      {/* Services Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h3 className="text-3xl font-bold text-center mb-8">Hizmetlerimiz</h3>
+          <h3 className="text-3xl font-bold text-center mb-12">Hizmetlerimiz</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg">
-              <h4 className="text-xl font-semibold mb-2">Saç Ekimi</h4>
-              <p>Kalıcı ve doğal sonuçlar için FUE ve DHI teknikleriyle saç ekimi.</p>
-              <a href="/sac-ekimi" className="text-blue-700 hover:underline">Detaylı Bilgi</a>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg">
-              <h4 className="text-xl font-semibold mb-2">Burun Estetiği</h4>
-              <p>Yüzünüze uyumlu, doğal ve estetik burun tasarımı.</p>
-              <a href="/burun-estetigi" className="text-blue-700 hover:underline">Detaylı Bilgi</a>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg">
-              <h4 className="text-xl font-semibold mb-2">Diş Tedavileri</h4>
-              <p>İmplant, zirkonyum kaplama ve estetik diş çözümleri.</p>
-              <a href="/dis-tedavileri" className="text-blue-700 hover:underline">Detaylı Bilgi</a>
-            </div>
+            {hizmetler.map((hizmet, index) => (
+              <a
+                key={index}
+                href={hizmet.path}
+                className="block bg-gray-50 p-6 rounded-lg shadow hover:shadow-lg transition"
+              >
+                <h4 className="text-xl font-semibold mb-2">{hizmet.name}</h4>
+                <p className="text-lg">{hizmet.description}</p>
+              </a>
+            ))}
           </div>
         </div>
       </section>
