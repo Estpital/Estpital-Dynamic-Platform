@@ -6,6 +6,7 @@ function SacEkimiKampanya() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const [openQuestion, setOpenQuestion] = useState(null);
+  const [phone, setPhone] = useState('');
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -14,6 +15,12 @@ function SacEkimiKampanya() {
 
   const toggleQuestion = (index) => {
     setOpenQuestion(openQuestion === index ? null : index);
+  };
+
+  const handlePhoneSubmit = (e) => {
+    e.preventDefault();
+    // Telefon numarasını WhatsApp bağlantısına yönlendirme
+    window.location.href = `https://wa.me/905441072570?text=Merhaba,%20Estpital%20saç%20ekimi%20kampanyası%20hakkında%20bilgi%20almak%20istiyorum!%20Telefon:%20${phone}`;
   };
 
   const faqData = [
@@ -40,7 +47,7 @@ function SacEkimiKampanya() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Navbar */}
       <nav className="bg-blue-700 text-white p-4 sticky top-0 z-20">
         <div className="container mx-auto flex justify-between items-center">
@@ -98,12 +105,30 @@ function SacEkimiKampanya() {
       </nav>
 
       {/* Hero Section */}
-      <section className="bg-blue-100 py-16 sm:py-20 text-center">
+      <section className="bg-gradient-to-r from-blue-100 to-white py-12 sm:py-16 text-center">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">Saç Ekimi ile Yeni Bir Başlangıç Yapın</h1>
-          <p className="text-lg sm:text-xl mb-6 max-w-2xl mx-auto">
-            Dr. Gizem Kağıtçı liderliğinde, Estpital’de modern tekniklerle doğal ve kalıcı saç ekimi çözümleri sunuyoruz. Sedasyon ve eksozom tedavisiyle konforlu bir deneyim için hemen randevu alın!
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight text-gray-800">
+            Saç Ekimi ile Yeni Bir Başlangıç Yapın
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-600">
+            Estpital’de Dr. Gizem Kağıtçı ile modern saç ekimi teknikleri (FUE, DHI, Sedasyon) kullanarak doğal ve kalıcı sonuçlar elde edin.
           </p>
+          <form onSubmit={handlePhoneSubmit} className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Telefon Numaranız"
+              className="w-full sm:w-64 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition text-lg"
+            >
+              Hemen İletişime Geç
+            </button>
+          </form>
           <a
             href="/randevu"
             className="inline-block bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-800 text-lg sm:text-xl"
@@ -114,28 +139,56 @@ function SacEkimiKampanya() {
       </section>
 
       {/* Doktor Tanıtımı */}
-      <section className="py-12 sm:py-16 bg-white">
+      <section className="py-12 sm:py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Uzman Doktorumuz: Dr. Gizem Kağıtçı</h2>
-          <div className="flex flex-col md:flex-row gap-8 max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800">
+            Uzman Doktorumuz: Dr. Gizem Kağıtçı
+          </h2>
+          <div className="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto">
             <div className="md:w-1/3">
-              <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
+              <div className="bg-gray-200 h-64 sm:h-72 rounded-lg flex items-center justify-center">
                 <p className="text-lg text-gray-600">[Dr. Gizem Kağıtçı’nın Fotoğrafı - İleride Eklenecek]</p>
               </div>
             </div>
             <div className="md:w-2/3">
-              <p className="text-lg mb-4">
-                Dr. Gizem Kağıtçı, saç ekimi ve medikal estetik alanında 10 yılı aşkın deneyime sahip bir uzmandır. İstanbul Üniversitesi Tıp Fakültesi’nden mezun olan Dr. Kağıtçı, uzmanlığını plastik cerrahi ve saç ekimi teknikleri üzerine tamamlamıştır. Türk Plastik, Rekonstrüktif ve Estetik Cerrahi Derneği üyesidir.
+              <p className="text-lg text-gray-600 mb-4">
+                Dr. Gizem Kağıtçı, saç ekimi ve medikal estetik alanında 10 yılı aşkın deneyime sahip bir uzmandır. İstanbul Üniversitesi Tıp Fakültesi’nden mezun olan Dr. Kağıtçı, uzmanlığını plastik cerrahi ve saç ekimi teknikleri üzerine tamamlamıştır.
               </p>
-              <p className="text-lg mb-4">
-                Sedasyonlu saç ekimi, eksozom tedavisi ve DHI yöntemiyle doğal ve kalıcı sonuçlar sunar. Dr. Kağıtçı, hastalarına ağrısız ve konforlu bir deneyim sağlamak için en modern teknikleri kullanır.
+              <p className="text-lg text-gray-600 mb-4">
+                Türk Plastik, Rekonstrüktif ve Estetik Cerrahi Derneği üyesidir ve ulusal/uluslararası kongreleri takip ederek en güncel yöntemleri hastalarına sunar. Sedasyonlu saç ekimi, eksozom tedavisi ve DHI yöntemiyle doğal ve kalıcı sonuçlar elde eder.
               </p>
-              <a
-                href="/doktorlar/gizem-kagitci"
-                className="inline-block bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800"
-              >
-                Daha Fazla Bilgi
-              </a>
+              <p className="text-lg text-gray-600">
+                Hastalarına stressiz ve ağrısız bir deneyim sunmak için modern teknikler kullanır. Estpital’de Dr. Kağıtçı ile hayalinizdeki görünüme kavuşun!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Hizmet Detayları */}
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800">
+            Estpital’de Saç Ekimi Süreci
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-50 p-6 rounded-lg shadow">
+              <h3 className="text-xl font-semibold mb-4 text-gray-800">Danışmanlık ve Planlama</h3>
+              <p className="text-lg text-gray-600">
+                Dr. Gizem Kağıtçı ile detaylı bir saç analizi yapılır. Saç dökülmesi derecesi ve donör bölge değerlendirilir. Size özel bir plan oluşturulur.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg shadow">
+              <h3 className="text-xl font-semibold mb-4 text-gray-800">Operasyon</h3>
+              <p className="text-lg text-gray-600">
+                6-8 saat süren operasyon, sedasyon altında yapılır. FUE veya DHI yöntemiyle saç kökleri titizlikle ekilir. Ağrı veya stres hissetmezsiniz.
+              </p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg shadow">
+              <h3 className="text-xl font-semibold mb-4 text-gray-800">İyileşme ve Sonuçlar</h3>
+              <p className="text-lg text-gray-600">
+                İlk 7-10 gün içinde iyileşme başlar. Eksozom tedavisi ile süreç hızlanır. Tam sonuçlar 12-18 ayda görülür.
+              </p>
             </div>
           </div>
         </div>
@@ -144,8 +197,10 @@ function SacEkimiKampanya() {
       {/* Öncesi/Sonrası - Kaydırılabilir */}
       <section className="py-12 sm:py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Saç Ekimi Öncesi ve Sonrası</h2>
-          <p className="text-lg text-center mb-6 max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800">
+            Saç Ekimi Öncesi ve Sonrası
+          </h2>
+          <p className="text-lg text-center mb-6 max-w-3xl mx-auto text-gray-600">
             Hastalarımızın saç ekimi öncesi ve sonrası değişimlerini burada görebilirsiniz. Daha fazla örnek görmek için kaydırabilirsiniz.
           </p>
           <div className="overflow-x-auto scrollbar-hide">
@@ -230,19 +285,48 @@ function SacEkimiKampanya() {
       {/* Hasta Yorumları */}
       <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Hastalarımız Ne Diyor?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800">
+            Hastalarımız Ne Diyor?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-gray-50 p-6 rounded-lg shadow">
-              <p className="text-lg italic mb-4">
+              <div className="flex items-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-lg italic mb-4 text-gray-600">
                 “Dr. Gizem Kağıtçı’nın sedasyonlu saç ekimi sayesinde hiçbir ağrı hissetmedim. Eksozom tedavisiyle saçlarım daha hızlı tutundu ve sonuçlar çok doğal!”
               </p>
-              <p className="text-lg font-semibold text-right">— Ahmet Y., 35</p>
+              <p className="text-lg font-semibold text-right text-gray-800">— Ahmet Y., 35</p>
             </div>
             <div className="bg-gray-50 p-6 rounded-lg shadow">
-              <p className="text-lg italic mb-4">
+              <div className="flex items-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-lg italic mb-4 text-gray-600">
                 “DHI yöntemiyle saç ekimi yaptırdım ve tıraş olmadan işlem yapıldı. Dr. Kağıtçı ve ekibi çok profesyonel, sonuçlardan çok memnunum!”
               </p>
-              <p className="text-lg font-semibold text-right">— Elif S., 29</p>
+              <p className="text-lg font-semibold text-right text-gray-800">— Elif S., 29</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg shadow">
+              <div className="flex items-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-lg italic mb-4 text-gray-600">
+                “Estpital’de saç ekimi yaptırdım ve sonuçlar harika! Dr. Kağıtçı’nın yaklaşımı çok güven vericiydi, kesinlikle tavsiye ederim.”
+              </p>
+              <p className="text-lg font-semibold text-right text-gray-800">— Mert K., 42</p>
             </div>
           </div>
         </div>
@@ -251,7 +335,9 @@ function SacEkimiKampanya() {
       {/* Sık Sorulan Sorular - Accordion Yapısı */}
       <section className="py-12 sm:py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Sık Sorulan Sorular</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800">
+            Sık Sorulan Sorular
+          </h2>
           <div className="max-w-3xl mx-auto space-y-4">
             {faqData.map((faq, index) => (
               <div key={index} className="border-b border-gray-200">
@@ -281,9 +367,24 @@ function SacEkimiKampanya() {
         </div>
       </section>
 
+      {/* CTA Bölümü */}
+      <section className="py-12 sm:py-16 bg-blue-100 text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-800">
+            Hayalinizdeki Görünüme Kavuşun!
+          </h2>
+          <a
+            href="/randevu"
+            className="inline-block bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-800 text-lg sm:text-xl"
+          >
+            Ücretsiz Danışmanlık Al
+          </a>
+        </div>
+      </section>
+
       {/* WhatsApp Butonu */}
       <a
-        href="https://wa.me/905441072570?text=Merhaba,%20Estpital%20hakkında%20bilgi%20almak%20istiyorum!"
+        href="https://wa.me/905441072570?text=Merhaba,%20Estpital%20saç%20ekimi%20kampanyası%20hakkında%20bilgi%20almak%20istiyorum!"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-4 right-4 bg-green-500 text-white p-3 sm:p-4 rounded-full shadow-lg hover:bg-green-600 transition z-50 flex items-center"
