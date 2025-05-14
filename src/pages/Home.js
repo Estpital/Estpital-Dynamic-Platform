@@ -22,11 +22,11 @@ function HeadModel({ isMobile }) {
 
       // Modelin ölçeğini ekran boyutuna göre ayarla
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scaleFactor = isMobile ? 3 / maxDim : 2.5 / maxDim; // Mobil için daha büyük ölçek
+      const scaleFactor = isMobile ? 2.5 / maxDim : 2 / maxDim; // Daha dengeli bir ölçek
       scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
       // Modelin başlangıç konumunu ayarla (saç kısmı görünecek şekilde yukarı kaydır)
-      scene.position.set(0, isMobile ? 0.5 : 1, 0);
+      scene.position.set(0, isMobile ? 1 : 1.5, 0);
 
       // Modeli üç farklı renge ayır
       scene.traverse((child) => {
@@ -88,7 +88,7 @@ function Home() {
     const controls = controlsRef.current;
     if (controls) {
       const updateCamera = () => {
-        controls.target.set(0, isMobile ? 0.5 : 1, 0); // Modelin merkezine sabitle
+        controls.target.set(0, isMobile ? 1 : 1.5, 0); // Modelin merkezine sabitle
         controls.update();
       };
       controls.addEventListener('change', updateCamera);
@@ -114,10 +114,10 @@ function Home() {
           <div className={`md:w-1/3 ${isMobile ? 'hidden' : 'block'} text-center md:text-left`}></div>
           <div className={`w-full ${isMobile ? 'w-full h-screen' : 'md:w-1/3 h-[70vh]'}`}>
             <Canvas>
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="text-center text-gray-600">Model yükleniyor...</div>}>
                 <PerspectiveCamera 
                   makeDefault 
-                  position={[0, 1, 5]} // Kamerayı modelin üst kısmını görecek şekilde ayarladık
+                  position={[0, 1.5, 5]} // Kamerayı modelin üst kısmını görecek şekilde ayarladık
                   fov={isMobile ? 70 : 50} // Mobil için daha geniş görüş açısı
                 />
                 <ambientLight intensity={0.5} />
@@ -131,7 +131,7 @@ function Home() {
                   enableRotate={true}
                   minDistance={isMobile ? 2 : 1.5}
                   maxDistance={isMobile ? 5 : 4}
-                  target={[0, isMobile ? 0.5 : 1, 0]} // Modelin merkezine sabitle
+                  target={[0, isMobile ? 1 : 1.5, 0]} // Modelin merkezine sabitle
                   minAzimuthAngle={-Math.PI * 0.75} // -135 derece
                   maxAzimuthAngle={Math.PI * 0.75} // 135 derece
                   minPolarAngle={Math.PI / 2 - 0.2} // 90 - 11.5 derece (~%10-20)
