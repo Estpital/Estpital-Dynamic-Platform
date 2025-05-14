@@ -1,4 +1,116 @@
+import { useState } from 'react';
+
 function SacEkimi() {
+  // Accordion için açık/kapalı durumunu yöneten state
+  const [openQuestion, setOpenQuestion] = useState(null);
+
+  const toggleQuestion = (index) => {
+    setOpenQuestion(openQuestion === index ? null : index);
+  };
+
+  const faqData = [
+    {
+      question: "Saç ekimi sonuçları kalıcı mı?",
+      answer: "Evet, ekilen saçlar genetik olarak dökülmeye dirençlidir ve kalıcıdır. Ancak doğal yaşlanma sürecinde saç yoğunluğunda azalma olabilir."
+    },
+    {
+      question: "Saç ekimi operasyonu ağrılı mı?",
+      answer: "Sedasyon sayesinde işlem sırasında ağrı hissedilmez. Operasyon sonrası hafif bir rahatsızlık olabilir, ancak bu ağrı kesicilerle kolayca yönetilir."
+    },
+    {
+      question: "Saç ekimi ne kadar sürer?",
+      answer: "Operasyon genellikle 6-8 saat sürer, ancak bu süre ekilecek saç kökü sayısına ve kullanılan tekniğe bağlı olarak değişebilir."
+    },
+    {
+      question: "Saç ekimi için yaş sınırı var mı?",
+      answer: "18 yaş üstü herkes için uygundur, ancak saç dökülmesinin stabilize olması önemlidir. Genellikle 25 yaş ve sonrası önerilir."
+    },
+    {
+      question: "Ne zaman sonuç görürüm?",
+      answer: "İlk sonuçlar 3-4 ayda başlar, tam sonuçlar ise 12-18 ayda ortaya çıkar. Eksozom tedavisi bu süreci hızlandırabilir."
+    },
+    {
+      question: "Saç ekimi sonrası saçlarım ne zaman dökülür?",
+      answer: "Ekilen saçlar genellikle ilk 2-4 hafta içinde geçici olarak dökülür (şok dökülme). Ardından yeni saçlar büyümeye başlar."
+    },
+    {
+      question: "Saç ekimi için saçlarımı tıraş ettirmem gerekir mi?",
+      answer: "DHI yöntemiyle tıraşsız ekim yapılabilir. Ancak FUE yönteminde genellikle donör bölgenin tıraş edilmesi gerekir."
+    },
+    {
+      question: "Sedasyonlu saç ekimi nedir?",
+      answer: "Sedasyon, hastanın işlem sırasında hafif bir uyku halinde olmasını sağlar. Bu sayede ağrı veya stres hissedilmez, operasyon konforlu geçer."
+    },
+    {
+      question: "Eksozom tedavisi saç ekimine nasıl katkı sağlar?",
+      answer: "Eksozom tedavisi, saç köklerini güçlendirir, tutunma oranını artırır ve iyileşmeyi hızlandırır. Büyüme faktörleriyle saç kalitesini iyileştirir."
+    },
+    {
+      question: "DHI yöntemi nedir ve avantajları nelerdir?",
+      answer: "DHI (Direct Hair Implantation), saç köklerinin özel bir kalemle doğrudan ekildiği bir yöntemdir. Tıraşsız ekim, hızlı iyileşme ve doğal görünüm sağlar."
+    },
+    {
+      question: "Saç ekimi sonrası nelere dikkat etmeliyim?",
+      answer: "İlk 2 hafta başınızı korumalı, direkt güneş ışığından kaçınmalı ve doktorunuzun önerdiği şekilde saç yıkama yapmalısınız."
+    },
+    {
+      question: "Saç ekimi sonrası kabuklanma olur mu?",
+      answer: "Evet, ekim bölgesinde ilk 7-10 gün içinde kabuklanma olması normaldir. Bu kabuklar doktor önerilerine uygun yıkamayla dökülür."
+    },
+    {
+      question: "Saç ekimi sırasında kanama olur mu?",
+      answer: "Minimal düzeyde kanama olabilir, ancak modern teknikler sayesinde bu çok azdır ve kontrol altındadır."
+    },
+    {
+      question: "Saç ekimi sonrası enfeksiyon riski var mı?",
+      answer: "Steril koşullarda yapılan işlemlerde enfeksiyon riski çok düşüktür. Doktorunuzun önerdiği antibiyotikleri kullanmak riski daha da azaltır."
+    },
+    {
+      question: "Saç ekimi için kaç greft gerekir?",
+      answer: "Bu, saç dökülmesinin derecesine bağlıdır. Ortalama bir işlemde 2000-4000 greft ekilir, ancak bu sayı kişiye göre değişir."
+    },
+    {
+      question: "Saç ekimi sonrası ne zaman normal hayata dönerim?",
+      answer: "İlk 3-5 gün dinlenmeniz önerilir. İşe dönüş genellikle 7-10 gün içinde mümkündür, ancak ağır aktivitelerden 1 ay kaçınılmalıdır."
+    },
+    {
+      question: "Saç ekimi sonrası saçlarım doğal görünür mü?",
+      answer: "Evet, DHI ve FUE teknikleriyle ekilen saçlar, doğru açı ve yoğunlukla ekildiğinde tamamen doğal bir görünüm sağlar."
+    },
+    {
+      question: "Saç ekimi sonrası saçlarımı ne zaman boyatabilirim?",
+      answer: "Operasyondan sonra en az 3 ay beklenmesi önerilir. Saç köklerinin tamamen yerleşmesi için bu süre önemlidir."
+    },
+    {
+      question: "Saç ekimi sonrası şapka takabilir miyim?",
+      answer: "İlk 2 hafta şapka takılması önerilmez. Daha sonra, doktorunuzun önerdiği şekilde geniş ve yumuşak şapkalar kullanabilirsiniz."
+    },
+    {
+      question: "Saç ekimi sonrası denize veya havuza girebilir miyim?",
+      answer: "İlk 1 ay denize veya havuza girmek önerilmez. Enfeksiyon riskini önlemek için bu süre beklenmelidir."
+    },
+    {
+      question: "Saç ekimi sonrası egzersiz yapabilir miyim?",
+      answer: "İlk 2 hafta ağır egzersizlerden kaçınılmalıdır. Hafif yürüyüşler 1 hafta sonra yapılabilir, tam egzersize 1 ay sonra dönülebilir."
+    },
+    {
+      question: "Saç ekimi sonrası sigara içebilir miyim?",
+      answer: "Sigara, iyileşme sürecini olumsuz etkiler. Operasyondan önce ve sonra en az 2 hafta sigara içmemeniz önerilir."
+    },
+    {
+      question: "Saç ekimi sonrası alkol tüketebilir miyim?",
+      answer: "Alkol, kan dolaşımını etkileyerek iyileşmeyi yavaşlatabilir. Operasyondan sonra en az 1 hafta alkol tüketiminden kaçınılmalıdır."
+    },
+    {
+      question: "Saç ekimi sonrası saçlarımı nasıl yıkarım?",
+      answer: "Doktorunuzun önerdiği özel bir şampuan ve losyonla, ilk yıkama genellikle 3. günde yapılır. Nazik hareketlerle yıkama yapılmalıdır."
+    },
+    {
+      question: "Saç ekimi sonrası saçlarımı ne zaman kestirebilirim?",
+      answer: "Ekilen saçların yerleşmesi için ilk 1 ay makasla kesim önerilir. Tıraş makinesi kullanımı için 3 ay beklenmesi daha güvenlidir."
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navbar */}
@@ -229,31 +341,35 @@ function SacEkimi() {
             </div>
           </div>
 
-          {/* Sık Sorulan Sorular */}
+          {/* Sık Sorulan Sorular - Accordion Yapısı */}
           <div className="mb-12">
             <h3 className="text-3xl font-bold text-center mb-8">Sık Sorulan Sorular</h3>
-            <ul className="space-y-6 max-w-3xl mx-auto">
-              <li>
-                <strong className="text-lg">Saç ekimi sonuçları kalıcı mı?</strong>
-                <p>Evet, ekilen saçlar genetik olarak dökülmeye dirençlidir ve kalıcıdır.</p>
-              </li>
-              <li>
-                <strong className="text-lg">Operasyon ağrılı mı?</strong>
-                <p>Sedasyon sayesinde işlem sırasında ağrı hissedilmez, oldukça konforludur.</p>
-              </li>
-              <li>
-                <strong className="text-lg">Ne zaman sonuç görürüm?</strong>
-                <p>İlk sonuçlar 3-4 ayda başlar, tam sonuçlar 12-18 ayda ortaya çıkar.</p>
-              </li>
-              <li>
-                <strong className="text-lg">Saç ekimi için yaş sınırı var mı?</strong>
-                <p>18 yaş üstü herkes için uygundur, ancak saç dökülmesi stabilize olmalıdır.</p>
-              </li>
-              <li>
-                <strong className="text-lg">Eksozom tedavisi saç ekimine nasıl katkı sağlar?</strong>
-                <p>Eksozom tedavisi, saç köklerini güçlendirir, tutunma oranını artırır ve iyileşmeyi hızlandırır.</p>
-              </li>
-            </ul>
+            <div className="max-w-3xl mx-auto space-y-4">
+              {faqData.map((faq, index) => (
+                <div key={index} className="border-b border-gray-200">
+                  <button
+                    onClick={() => toggleQuestion(index)}
+                    className="w-full text-left py-4 px-6 flex justify-between items-center bg-gray-100 hover:bg-gray-200 transition"
+                  >
+                    <span className="text-lg font-semibold">{faq.question}</span>
+                    <svg
+                      className={`w-6 h-6 transform transition-transform ${openQuestion === index ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  {openQuestion === index && (
+                    <div className="py-4 px-6 bg-gray-50">
+                      <p className="text-lg">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Neden Biz? */}
@@ -280,7 +396,7 @@ function SacEkimi() {
             <h3 className="text-3xl font-bold text-center mb-8">Bizi Sosyal Medyada Takip Edin</h3>
             <div className="flex justify-center space-x-6">
               <a
-                href="https://www.instagram.com/estpitalagency"
+                href="https://www.instagram.com/estpital"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-pink-500 text-white px-6 py-3 rounded-lg hover:bg-pink-600 flex items-center"
