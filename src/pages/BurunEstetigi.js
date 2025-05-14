@@ -18,9 +18,9 @@ function BurunEstetigi() {
       {/* Hero Section */}
       <section className="bg-blue-100 py-20 text-center">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Burun Estetiği ile Mükemmel Görünüm</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Burun Estetiği ile Yüzünüzdeki Uyumu Yakalayın</h2>
           <p className="text-lg md:text-xl mb-6 max-w-2xl mx-auto">
-            Uzman ekibimizle doğal ve estetik burun tasarımı. Yüzünüze en uygun çözümleri sunuyoruz!
+            Estpital’de uzman ekibimizle doğal, estetik ve yüzünüze en uygun burun tasarımını sunuyoruz. Hem estetik hem fonksiyonel çözümler için hemen randevu alın!
           </p>
           <a
             href="/randevu"
@@ -34,27 +34,77 @@ function BurunEstetigi() {
       {/* Main Content */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          {/* Operasyon Detayları */}
+          {/* Genel Bilgi */}
           <div className="mb-12">
-            <h3 className="text-3xl font-bold text-center mb-8">Burun Estetiği Hakkında</h3>
+            <h3 className="text-3xl font-bold text-center mb-8">Burun Estetiği (Rinoplasti) Nedir?</h3>
+            <p className="text-lg max-w-3xl mx-auto">
+              Burun estetiği, burunun şeklini, boyutunu veya yapısını değiştirerek estetik bir görünüm kazanmasını sağlayan cerrahi bir işlemdir. Aynı zamanda nefes alma sorunları gibi fonksiyonel problemleri çözmek için de uygulanabilir. Estpital International Agency olarak, hem estetik kaygıları hem de sağlık ihtiyaçlarını dikkate alarak kişiye özel çözümler sunuyoruz.
+            </p>
+          </div>
+
+          {/* Kimler İçin Uygun? */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-center mb-8">Burun Estetiği Kimler İçin Uygundur?</h3>
+            <ul className="list-disc list-inside space-y-4 max-w-3xl mx-auto text-lg">
+              <li>Burun şeklinden veya boyutundan memnun olmayanlar.</li>
+              <li>Nefes alma güçlüğü çekenler (ör. septum deviasyonu olanlar).</li>
+              <li>Burun travması geçirmiş ve deformasyon yaşayanlar.</li>
+              <li>18 yaşını geçmiş, burun gelişimi tamamlanmış bireyler.</li>
+              <li>Genel sağlık durumu iyi olan ve gerçekçi beklentilere sahip kişiler.</li>
+            </ul>
+          </div>
+
+          {/* Operasyon Süreci */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-center mb-8">Burun Estetiği Operasyon Süreci</h3>
             <div className="space-y-8">
               <div>
-                <h4 className="text-2xl font-semibold mb-4">Burun Estetiği Nedir?</h4>
+                <h4 className="text-2xl font-semibold mb-4">Danışmanlık ve Planlama</h4>
                 <p className="text-lg">
-                  Burun estetiği (rinoplasti), burunun şeklini ve boyutunu değiştirerek yüzle uyumlu bir görünüm elde etmeyi amaçlayan cerrahi bir işlemdir.
-                  Estpital’de hem estetik hem de fonksiyonel (nefes alma sorunları) çözümler sunuyoruz.
+                  İlk adımda, uzman doktorumuz Dr. Gizem Kağıtçı ile yüz analizi yapılır. Yüz yapınıza en uygun burun şekli belirlenir ve beklentileriniz değerlendirilir. 3D simülasyonlarla operasyon sonrası görünüm hakkında fikir sahibi olabilirsiniz.
                 </p>
               </div>
               <div>
-                <h4 className="text-2xl font-semibold mb-4">Kimler İçin Uygun?</h4>
+                <h4 className="text-2xl font-semibold mb-4">Operasyon</h4>
                 <p className="text-lg">
-                  Burun estetiği, burun şeklinden memnun olmayan, nefes alma sorunları yaşayan veya burun travması geçirmiş 18 yaş üstü bireyler için uygundur.
+                  Operasyon genellikle 2-3 saat sürer ve genel anestezi altında gerçekleştirilir. Açık veya kapalı rinoplasti teknikleri kullanılabilir. Estpital’de piezo (ultrasonik) yöntemiyle daha hassas ve doğal sonuçlar elde ediyoruz.
                 </p>
               </div>
               <div>
-                <h4 className="text-2xl font-semibold mb-4">Operasyon Süreci</h4>
+                <h4 className="text-2xl font-semibold mb-4">İyileşme Süreci</h4>
                 <p className="text-lg">
-                  Operasyon genellikle 2-3 saat sürer ve genel anestezi altında gerçekleştirilir. İyileşme süreci 1-2 hafta sürer, tam sonuçlar 6-12 ayda görülür.
+                  Operasyon sonrası ilk 1-2 hafta içinde şişlik ve morluklar azalır. Burun ateli 7 gün sonra çıkarılır. Tam sonuçlar 6-12 ay içinde netleşir. İyileşme sürecinde doktor önerilerine uymak çok önemlidir.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Teknik Detaylar */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-center mb-8">Kullanılan Teknikler</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <h4 className="text-xl font-semibold mb-2">Açık Rinoplasti</h4>
+                <p className="text-lg">
+                  Burun ucunda küçük bir kesi açılarak gerçekleştirilir. Daha karmaşık durumlarda tercih edilir ve doktorun burun yapısına daha iyi müdahale etmesini sağlar.
+                </p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <h4 className="text-xl font-semibold mb-2">Kapalı Rinoplasti</h4>
+                <p className="text-lg">
+                  Kesiler burun içinde yapılır, dışarıdan iz kalmaz. Daha az invaziv bir yöntemdir ve iyileşme süreci genellikle daha hızlıdır.
+                </p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <h4 className="text-xl font-semibold mb-2">Piezo (Ultrasonik) Rinoplasti</h4>
+                <p className="text-lg">
+                  Ultrasonik cihazlarla burun kemikleri şekillendirilir. Daha az travmatik bir yöntemdir, morluk ve şişlik riskini azaltır.
+                </p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <h4 className="text-xl font-semibold mb-2">Non-Cerrahi Rinoplasti</h4>
+                <p className="text-lg">
+                  Küçük düzeltmeler için dolgu kullanılarak cerrahi olmadan burun şekli değiştirilebilir. Geçici bir yöntemdir ve 6-12 ay etkilidir.
                 </p>
               </div>
             </div>
@@ -66,8 +116,7 @@ function BurunEstetigi() {
             <div className="max-w-2xl mx-auto bg-gray-50 p-6 rounded-lg shadow">
               <h4 className="text-2xl font-semibold mb-2">Dr. Gizem Kağıtçı</h4>
               <p className="text-lg mb-4">
-                Dr. Gizem Kağıtçı, burun estetiği ve plastik cerrahi alanında 10 yılı aşkın deneyime sahiptir.
-                Yüz estetiği konusunda uzmanlaşmıştır.
+                Dr. Gizem Kağıtçı, burun estetiği ve yüz estetiği alanında 10 yılı aşkın deneyime sahiptir. Yüz simetrisi ve doğal sonuçlar konusunda uzmanlaşmıştır.
               </p>
               <p className="text-lg">
                 Eğitim: İstanbul Üniversitesi Tıp Fakültesi<br />
@@ -78,21 +127,54 @@ function BurunEstetigi() {
 
           {/* Öncesi/Sonrası */}
           <div className="mb-12">
-            <h3 className="text-3xl font-bold text-center mb-8">Öncesi ve Sonrası</h3>
+            <h3 className="text-3xl font-bold text-center mb-8">Burun Estetiği Öncesi ve Sonrası</h3>
             <p className="text-lg text-center mb-6 max-w-3xl mx-auto">
-              Hastalarımızın burun estetiği öncesi ve sonrası değişimlerini burada görebilirsiniz.
+              Hastalarımızın burun estetiği öncesi ve sonrası değişimlerini burada görebilirsiniz. Her hasta için kişiselleştirilmiş çözümler sunuyoruz.
               (Not: Görseller ileride eklenecek.)
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-gray-200 p-6 rounded-lg text-center">
                 <p className="text-lg font-semibold">Öncesi</p>
-                <p>Asimetrik burun yapısı, nefes alma sorunları.</p>
+                <p>Asimetrik burun yapısı, nefes alma sorunları, estetik kaygılar.</p>
               </div>
               <div className="bg-gray-200 p-6 rounded-lg text-center">
                 <p className="text-lg font-semibold">Sonrası</p>
-                <p>Doğal, estetik ve yüzle uyumlu bir burun.</p>
+                <p>Doğal, estetik ve yüzle uyumlu bir burun, iyileştirilmiş nefes alma.</p>
               </div>
             </div>
+          </div>
+
+          {/* Hasta Yorumları */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-center mb-8">Hastalarımız Ne Diyor?</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <p className="text-lg italic mb-4">
+                  “Dr. Gizem Kağıtçı ve ekibi harika bir iş çıkardı! Yeni burnum yüzümle çok uyumlu ve nefes almam çok rahatladı. Süreç boyunca kendimi çok güvende hissettim.”
+                </p>
+                <p className="text-lg font-semibold text-right">— Ayşe K., 32</p>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow">
+                <p className="text-lg italic mb-4">
+                  “Estpital’e burun estetiği için geldim ve sonuçtan çok memnunum. İyileşme süreci beklediğimden daha kolay geçti. Kesinlikle tavsiye ederim!”
+                </p>
+                <p className="text-lg font-semibold text-right">— Mehmet T., 28</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Riskler ve Komplikasyonlar */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-center mb-8">Riskler ve Komplikasyonlar</h3>
+            <p className="text-lg max-w-3xl mx-auto mb-6">
+              Her cerrahi işlemde olduğu gibi, burun estetiğinde de bazı riskler bulunmaktadır. Ancak Estpital’de bu riskleri en aza indirmek için modern teknikler ve deneyimli bir ekip ile çalışıyoruz.
+            </p>
+            <ul className="list-disc list-inside space-y-4 max-w-3xl mx-auto text-lg">
+              <li>Geçici şişlik ve morluk (genellikle 1-2 haftada geçer).</li>
+              <li>Nadiren enfeksiyon (antibiyotiklerle kontrol altına alınır).</li>
+              <li>Burun şeklinde istenmeyen sonuçlar (revizyon rinoplasti ile düzeltilebilir).</li>
+              <li>Geçici nefes alma zorluğu (iyileşme sürecinde normale döner).</li>
+            </ul>
           </div>
 
           {/* Sık Sorulan Sorular */}
@@ -101,15 +183,23 @@ function BurunEstetigi() {
             <ul className="space-y-6 max-w-3xl mx-auto">
               <li>
                 <strong className="text-lg">Burun estetiği ağrılı mı?</strong>
-                <p>Genel anestezi altında yapıldığı için işlem sırasında ağrı hissedilmez. İyileşme sürecinde hafif rahatsızlık olabilir.</p>
+                <p>Genel anestezi altında yapıldığı için işlem sırasında ağrı hissedilmez. İyileşme sürecinde hafif bir rahatsızlık olabilir, ancak bu ağrı kesicilerle yönetilebilir.</p>
               </li>
               <li>
                 <strong className="text-lg">İyileşme süreci ne kadar sürer?</strong>
-                <p>İlk 1-2 haftada şişlik ve morluklar azalır, tam sonuçlar 6-12 ayda ortaya çıkar.</p>
+                <p>İlk 1-2 haftada şişlik ve morluklar azalır, burun ateli 7 gün sonra çıkarılır. Tam sonuçlar 6-12 ayda netleşir.</p>
               </li>
               <li>
                 <strong className="text-lg">Sonuçlar kalıcı mı?</strong>
-                <p>Evet, burun estetiği sonuçları genellikle kalıcıdır.</p>
+                <p>Evet, burun estetiği sonuçları genellikle kalıcıdır. Ancak yaşlanma veya travma gibi faktörler uzun vadede değişikliklere neden olabilir.</p>
+              </li>
+              <li>
+                <strong className="text-lg">Ameliyat sonrası iz kalır mı?</strong>
+                <p>Kapalı rinoplasti tercih edilirse iz kalmaz. Açık rinoplastide burun ucunda küçük bir iz olabilir, ancak bu iz zamanla neredeyse görünmez hale gelir.</p>
+              </li>
+              <li>
+                <strong className="text-lg">Burun estetiği nefes alma sorunlarını çözer mi?</strong>
+                <p>Evet, septum deviasyonu gibi nefes alma sorunları aynı operasyonda düzeltilebilir.</p>
               </li>
             </ul>
           </div>
@@ -127,8 +217,8 @@ function BurunEstetigi() {
                 <p>Yüzünüze en uygun burun tasarımını birlikte planlıyoruz.</p>
               </div>
               <div className="bg-gray-50 p-6 rounded-lg shadow">
-                <h4 className="text-xl font-semibold mb-2">Güvenli Operasyon</h4>
-                <p>Modern teknikler ve steril ortamda güvenli bir süreç.</p>
+                <h4 className="text-xl font-semibold mb-2">Modern Teknikler</h4>
+                <p>Piezo rinoplasti ve kapalı tekniklerle güvenli ve doğal sonuçlar.</p>
               </div>
             </div>
           </div>
