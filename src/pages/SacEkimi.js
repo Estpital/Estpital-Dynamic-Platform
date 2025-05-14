@@ -188,10 +188,10 @@ function SacEkimi() {
             <div className="flex flex-col md:flex-row gap-8 max-w-4xl mx-auto">
               <div className="md:w-1/3">
                 <img
-                  src="/src/assets/dr-gizem-kagitci-sac-ekimi.jpg"
+                  src="/assets/dr-gizem-kagitci-sac-ekimi.jpg"
                   alt="Dr. Gizem Kağıtçı"
                   className="h-48 sm:h-64 w-full object-cover rounded-lg"
-                  onError={(e) => (e.target.src = "/src/assets/placeholder-doctor.jpg")} // Yüklenemezse yedek görsel
+                  onError={(e) => (e.target.src = "/assets/placeholder-doctor.jpg")} // Yüklenemezse yedek görsel
                 />
               </div>
               <div className="md:w-2/3">
@@ -263,19 +263,19 @@ function SacEkimi() {
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
                       <img
-                        src="/src/assets/before-after/before1.jpg"
+                        src="/assets/before1.jpg"
                         alt="Öncesi"
                         className="h-40 sm:h-48 w-full object-cover rounded-lg"
-                        onError={(e) => (e.target.src = "/src/assets/before-after/placeholder-before.jpg")} // Yüklenemezse yedek görsel
+                        onError={(e) => (e.target.src = "/assets/placeholder-before.jpg")} // Yüklenemezse yedek görsel
                       />
                       <p className="text-center mt-2 font-semibold text-sm sm:text-base">Öncesi</p>
                     </div>
                     <div>
                       <img
-                        src="/src/assets/before-after/after1.jpg"
+                        src="/assets/after1.jpg"
                         alt="Sonrası"
                         className="h-40 sm:h-48 w-full object-cover rounded-lg"
-                        onError={(e) => (e.target.src = "/src/assets/before-after/placeholder-after.jpg")} // Yüklenemezse yedek görsel
+                        onError={(e) => (e.target.src = "/assets/placeholder-after.jpg")} // Yüklenemezse yedek görsel
                       />
                       <p className="text-center mt-2 font-semibold text-sm sm:text-base">Sonrası</p>
                     </div>
@@ -287,19 +287,19 @@ function SacEkimi() {
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
                       <img
-                        src="/src/assets/before-after/before2.jpg"
+                        src="/assets/before2.jpg"
                         alt="Öncesi"
                         className="h-40 sm:h-48 w-full object-cover rounded-lg"
-                        onError={(e) => (e.target.src = "/src/assets/before-after/placeholder-before.jpg")} // Yüklenemezse yedek görsel
+                        onError={(e) => (e.target.src = "/assets/placeholder-before.jpg")} // Yüklenemezse yedek görsel
                       />
                       <p className="text-center mt-2 font-semibold text-sm sm:text-base">Öncesi</p>
                     </div>
                     <div>
                       <img
-                        src="/src/assets/before-after/after2.jpg"
+                        src="/assets/after2.jpg"
                         alt="Sonrası"
                         className="h-40 sm:h-48 w-full object-cover rounded-lg"
-                        onError={(e) => (e.target.src = "/src/assets/before-after/placeholder-after.jpg")} // Yüklenemezse yedek görsel
+                        onError={(e) => (e.target.src = "/assets/placeholder-after.jpg")} // Yüklenemezse yedek görsel
                       />
                       <p className="text-center mt-2 font-semibold text-sm sm:text-base">Sonrası</p>
                     </div>
@@ -311,19 +311,19 @@ function SacEkimi() {
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
                       <img
-                        src="/src/assets/before-after/before3.jpg"
+                        src="/assets/before3.jpg"
                         alt="Öncesi"
                         className="h-40 sm:h-48 w-full object-cover rounded-lg"
-                        onError={(e) => (e.target.src = "/src/assets/before-after/placeholder-before.jpg")} // Yüklenemezse yedek görsel
+                        onError={(e) => (e.target.src = "/assets/placeholder-before.jpg")} // Yüklenemezse yedek görsel
                       />
                       <p className="text-center mt-2 font-semibold text-sm sm:text-base">Öncesi</p>
                     </div>
                     <div>
                       <img
-                        src="/src/assets/before-after/after3.jpg"
+                        src="/assets/after3.jpg"
                         alt="Sonrası"
                         className="h-40 sm:h-48 w-full object-cover rounded-lg"
-                        onError={(e) => (e.target.src = "/src/assets/before-after/placeholder-after.jpg")} // Yüklenemezse yedek görsel
+                        onError={(e) => (e.target.src = "/assets/placeholder-after.jpg")} // Yüklenemezse yedek görsel
                       />
                       <p className="text-center mt-2 font-semibold text-sm sm:text-base">Sonrası</p>
                     </div>
