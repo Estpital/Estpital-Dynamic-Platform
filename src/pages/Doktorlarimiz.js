@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from '../components/Navbar';
 
+// Görselleri import et
+import DrGizemKagitci from '../assets/dr-gizem-kagitci-sac-ekimi.jpg';
+import DrUmmahanOzaslan from '../assets/dr-ummahan-ozaslan.jpg';
+import PlaceholderDoctor from '../assets/placeholder-doctor.jpg';
+
 function Doktorlarimiz() {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,13 +22,13 @@ function Doktorlarimiz() {
       name: "Dr. Gizem Kağıtçı",
       specialty: "Plastik Cerrahi ve Saç Ekimi Uzmanı",
       description: "Dr. Gizem Kağıtçı, saç ekimi ve medikal estetik alanında 10 yılı aşkın deneyime sahip bir uzmandır. İstanbul Üniversitesi Tıp Fakültesi’nden mezun olan Dr. Kağıtçı, uzmanlığını plastik cerrahi ve saç ekimi teknikleri üzerine tamamlamıştır. Türk Plastik, Rekonstrüktif ve Estetik Cerrahi Derneği üyesidir ve ulusal/uluslararası kongreleri takip ederek en güncel yöntemleri hastalarına sunar. Özellikle sedasyonlu saç ekimi, eksozom tedavisi ve DHI yöntemiyle doğal ve kalıcı sonuçlar sunar.",
-      image: "/assets/dr-gizem-kagitci-sac-ekimi.jpg"
+      image: DrGizemKagitci
     },
     {
       name: "Op. Dr. Ummahan Özaslan",
       specialty: "Plastik ve Rekonstrüktif Cerrahi Uzmanı",
       description: "Op. Dr. Ummahan Özaslan, Plastik ve Rekonstrüktif Cerrahi alanında 15 yılı aşkın deneyime sahip bir uzmandır. 1998 yılında Ege Üniversitesi Tıp Fakültesi’nden mezun olmuştur. Plastik Cerrahi ihtisasını Celal Bayar Üniversitesi’nde tamamlamış, 2007 yılında ise ABD’de Cleveland University Hospital’da dünyaca ünlü plastik cerrah Dr. Bahman Guyuron’un yanında yüz ve burun estetiği üzerine fellowship eğitimi almıştır. 2013 yılından beri Denizli’deki kendi muayenehanesinde hasta kabul eden Dr. Özaslan, ameliyatlarını özel hastanelerde gerçekleştirmektedir. Türk Tabipler Birliği ve Türk Estetik Cerrahi Derneği üyesidir.",
-      image: "/assets/dr-ummahan-ozaslan.jpg"
+      image: DrUmmahanOzaslan
     }
   ];
 
@@ -45,7 +50,7 @@ function Doktorlarimiz() {
                       src={doctor.image}
                       alt={doctor.name}
                       className="h-56 sm:h-64 w-full object-cover rounded-lg"
-                      onError={(e) => (e.target.src = "/assets/placeholder-doctor.jpg")} // Yüklenemezse yedek görsel
+                      onError={(e) => (e.target.src = PlaceholderDoctor)} // Yüklenemezse yedek görsel
                     />
                   </div>
                   <div className="w-full sm:w-2/3">
