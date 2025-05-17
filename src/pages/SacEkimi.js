@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import Navbar from '../components/Navbar';
+import SacAnaliziFormu from '../components/SacAnaliziFormu'; // Yeni bileşeni import et
 
 function SacEkimi() {
   const { t } = useTranslation();
@@ -81,7 +82,7 @@ function SacEkimi() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
             <img
-              src="/assets/dr-gizem-kagitci.jpg" // Yer tutucu: Doktor fotoğrafı
+              src="/assets/dr-gizem-kagitci.jpg"
               alt="Dr. Gizem Kağıtçı"
               className="w-48 h-48 sm:w-64 sm:h-64 rounded-full object-cover shadow-lg"
             />
@@ -135,7 +136,6 @@ function SacEkimi() {
             {t('process_title')}
           </h2>
           <div className="relative">
-            {/* Zaman Çizelgesi Çizgisi */}
             <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-blue-200 h-full"></div>
             {timelineSteps.map((step, index) => (
               <div
@@ -167,6 +167,9 @@ function SacEkimi() {
           </div>
         </div>
       </section>
+
+      {/* Saç Analizi Formu */}
+      <SacAnaliziFormu />
 
       {/* CTA: Randevu Al */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 sm:py-16 text-center">
