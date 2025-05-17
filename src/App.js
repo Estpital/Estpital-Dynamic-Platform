@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import Home from './pages/Home';
-import SacEkimi from './pages/SacEkimi'; // HairTransplant yerine SacEkimi kullanıyoruz
-import Doctors from './pages/Doctors';
+import SacEkimi from './pages/SacEkimi';
+import Doktorlarimiz from './pages/Doktorlarimiz'; // Doctors yerine Doktorlarimiz kullanıyoruz
 import Shop from './pages/Shop';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sac-ekimi" element={<SacEkimi />} />
-          <Route path="/doktorlarimiz" element={<Doctors />} />
+          <Route path="/doktorlarimiz" element={<Doktorlarimiz />} />
           <Route path="/shop" element={<Shop />} />
           {/* Diğer hizmet sayfaları için yer tutucular */}
           <Route path="/burun-estetigi" element={<div>Burun Estetiği Sayfası (Yer Tutucu)</div>} />
