@@ -87,6 +87,9 @@ function Navbar() {
               </div>
             )}
           </div>
+          <a href="/shop" className="text-sm sm:text-base hover:underline">
+            Mağaza
+          </a>
           <div className="relative">
             <button
               onClick={toggleLangMenu}
@@ -174,6 +177,9 @@ function Navbar() {
               </div>
             )}
           </div>
+          <a href="/shop" className="block text-base hover:underline py-2">
+            Mağaza
+          </a>
         </div>
       )}
 
