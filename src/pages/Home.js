@@ -90,16 +90,15 @@ function Home() {
             <p className="text-base sm:text-lg md:text-xl mb-6 max-w-2xl mx-auto md:mx-0">
               {t('welcome_desc')}
             </p>
-            {/* Mobil cihazlarda "Randevu Al" butonunu gizle */}
+            {/* "Randevu Al" butonunu "Ücretsiz Online Konsültasyon" ile değiştir */}
             <a
-              href="/randevu"
+              href="/konsültasyon"
               className="inline-block bg-blue-700 text-white px-5 py-2 sm:px-6 sm:py-3 text-base sm:text-lg rounded-lg hover:bg-blue-800 hidden md:block"
             >
-              {t('appointment')}
+              Ücretsiz Online Konsültasyon
             </a>
           </div>
           <div className="md:w-1/2 mt-8 md:mt-0 h-64 md:h-96">
-            {/* 3D model kaldırıldı, bu alan boş bırakıldı */}
             <div className="text-center text-gray-500">
               <p>Estetik çözümlerimizle tanışmaya hazır mısınız?</p>
             </div>
